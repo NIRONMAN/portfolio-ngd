@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { CaretLeftOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -16,19 +16,22 @@ const navItems: NavItem[] = [
 ];
 
 const NavBar: React.FC = () => {
-  const router = useRouter();
+  const router=useRouter();
   return (
-    <nav className="flex items-center justify-between p-4 md:p-6 lg:p-8 text-white">
-      <h1 className="text-3xl font-bold flex items-center">
-        <CaretLeftOutlined onClick={() => router.back()} title="Go Back" className="mr-2 cursor-pointer" />
-        <Link href="/" className="hover:text-gray-300 transition-colors pl-4">
+    <nav className="flex items-center justify-between p-4 text-white">
+      <h1 className="text-2xl font-bold">
+      <CaretLeftOutlined onClick={()=>router.back()} />
+        <div onClick={()=>router.push("/")} className="hover:text-gray-300 transition-colors pl-10">
           Niranjan Dabhade
-        </Link>
+        </div>
       </h1>
       <ul className="flex space-x-6">
         {navItems.map((item) => (
           <li key={item.href}>
-            <Link href={item.href} className="hover:text-gray-300 transition-colors text-2xl">
+            <Link
+              href={item.href}
+              className="hover:text-gray-300 transition-colors"
+            >
               {item.label}
             </Link>
           </li>
