@@ -1,20 +1,15 @@
+"use client"
 import Image from "next/image";
 import React from "react";
-
+import ParticlesBack from "../Components/Particles"
 type Props = {};
 
 function page({}: Props) {
+
   return (
     <div className=" flex-1 h-[90vh] flex flex-row">
-      <Image
-        src="/black-smooth-textured-paper.jpg"
-        alt="Background"
-        fill
-        style={{
-          objectFit: "cover",
-          zIndex: -1,
-        }}
-      ></Image>
+      <ParticlesBack></ParticlesBack>
+      
       <div className="w-1/2 flex justify-center items-center">
         <Image
           style={{
@@ -23,8 +18,8 @@ function page({}: Props) {
           alt="Niranjan image"
           width={500}
           height={500}
-          src="/model.jpg"
-          className="shadow-white  shadow-md rounded-lg"
+          src="/mody.png"
+          className=" rounded-lg"
         ></Image>
       </div>
       <div className=" w-1/2 flex flex-col justify-center p-10 text-white">
