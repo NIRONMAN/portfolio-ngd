@@ -1,6 +1,5 @@
-"use client"
+"use client";
 import { CaretLeftOutlined } from '@ant-design/icons';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
@@ -16,28 +15,35 @@ const navItems: NavItem[] = [
 ];
 
 const NavBar: React.FC = () => {
-  const router=useRouter();
+  const router = useRouter();
+
+  const handleNavigation = (href: string) => {
+    router.push(href);
+  };
+
   return (
-    <nav className="flex items-center justify-between p-4 text-white">
-      <h1 className="text-2xl font-bold">
-      <CaretLeftOutlined onClick={()=>router.back()} />
-        <div onClick={()=>router.push("/")} className="hover:text-gray-300 transition-colors pl-10">
+    <div className="flex items-center justify-between p-4 text-white">
+      <h1 className="text-3xl font-bold flex flex-row items-center">
+        <CaretLeftOutlined onClick={() => router.back()} />
+        <div
+          onClick={() => handleNavigation("/")}
+          className="hover:text-gray-300 transition-colors pl-10 cursor-pointer"
+        >
           Niranjan Dabhade
         </div>
       </h1>
       <ul className="flex space-x-6">
         {navItems.map((item) => (
-          <li key={item.href}>
-            <Link
-              href={item.href}
-              className="hover:text-gray-300 transition-colors"
-            >
-              {item.label}
-            </Link>
+          <li
+            key={item.href}
+            onClick={() => handleNavigation(item.href)}
+            className="hover:text-gray-300 transition-colors cursor-pointer text-2xl "
+          >
+            {item.label}
           </li>
         ))}
       </ul>
-    </nav>
+    </div>
   );
 };
 
