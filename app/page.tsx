@@ -23,10 +23,10 @@ function page({}: Props) {
         ></Image>
       </div>
       <div className=" w-1/2 flex flex-col justify-center p-10 text-white">
-        <h1 className=" text-5xl font-bold mb-10">
+        <h1 className=" text-6xl font-bold mb-10">
           Hello, I am <br></br> Niranjan Dabhade
         </h1>
-        <p>
+        <p className=" text-2xl font-semibold">
            Passionate Developer from India.
         </p>
       </div>
