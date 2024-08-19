@@ -32,7 +32,7 @@ const NavBar: React.FC = () => {
           Niranjan Dabhade
         </div>
       </h1>
-      <ul className="flex space-x-6">
+      <ul className="flex gap-6">
         {navItems.map((item) => (
           <li
             key={item.href}
