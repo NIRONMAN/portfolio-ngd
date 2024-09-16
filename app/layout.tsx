@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "../Components/NavBar";
+import NavBar from "../components/NavBar";
+import { ThemeProvider } from 'next-themes';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +21,14 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={inter.className} style={{ height: '100vh' }}>
+
+      <body className={inter.className} style={{ height: '100vh' }} >
+        
+        <ThemeProvider attribute="class" defaultTheme="dark">
+
         <NavBar />
         {children}
+        </ThemeProvider>
       </body>
     </html>
   );
