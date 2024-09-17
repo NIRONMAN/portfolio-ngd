@@ -19,6 +19,7 @@ function Projects() {
           description="Developed an advanced educational application designed to enhance student learning through multiple modes including learning, revision, flashcards, and mind maps. Also has RAG implemention For handling Bigger Context."
           key={1}
           imageUrl="/Logo.svg"
+          gitHubLink="https://github.com/NIRONMAN/Learnability_2.0"
         >
           
         </Card3D>
@@ -28,6 +29,7 @@ function Projects() {
           description="Developed a full-stack blog application where users can create and view blogs, leveraging a serverless architecture."
           key={2}
           imageUrl="/blog.avif"
+          gitHubLink="https://github.com/NIRONMAN/High-Blogs"
         ></Card3D>
         <Card3D
           onClick={() => router.push("/Niropay")}
@@ -35,6 +37,7 @@ function Projects() {
           description="Developed a PayTM-like application that enables users to send money to each other."
           key={3}
           imageUrl="/niropay.jpg"
+          gitHubLink="https://github.com/NIRONMAN/Niropay"
         ></Card3D>
       </div>
     </div>
