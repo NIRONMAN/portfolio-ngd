@@ -30,9 +30,9 @@ const skills: Skill[] = [
 
 const SkillsComponent: FC = () => {
   return (
-    <section className="py-16">
+    <section className="py-10 min-h-[100vh] flex justify-center items-center">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8 text-white">Skills</h2>
+        <h2 className="text-3xl font-bold text-center mb-8 text-primary dark:text-white">Skills</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {skills.map((skill) => (
             <div
