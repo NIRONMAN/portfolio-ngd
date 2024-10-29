@@ -33,6 +33,11 @@ const ProjectDetails: React.FC = () => {
             <h1 className="text-3xl font-bold mb-4">{projectData.title}</h1>
             <div className='flex justify-center items-start'>
               <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transform transition duration-200 ease-in-out hover:scale-105">
+                <Link href={"https://high-blogs.pages.dev/"}>Live Link</Link>
+              </Button>
+            </div>
+            <div className='flex justify-center items-start'>
+              <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transform transition duration-200 ease-in-out hover:scale-105">
                 <Link href={projectData.githubUrl}>View on GitHub</Link>
               </Button>
             </div>
