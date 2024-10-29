@@ -1,5 +1,5 @@
 "use client";
-
+import { Home, UserPlus, Briefcase, Cpu, Mail } from 'lucide-react';
 import { MoonFilled, SunFilled } from '@ant-design/icons';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
@@ -20,16 +20,25 @@ const navItems: NavItem[] = [
   { label: 'Contact', href: 'contact' },
 ];
 
+const iconMap = {
+  Home: <Home />,
+  About: <UserPlus />,
+  Projects: <Briefcase />,
+  Skills: <Cpu />,
+  Contact: <Mail />,
+};
+
 const NavBar: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const [activeSection, setActiveSection] = useState('');
   const pathname = usePathname();
-  const router=useRouter();
+  const router = useRouter();
+
   useEffect(() => {
     if (pathname !== '/') return;
 
     const handleScroll = () => {
-      const sections = navItems.map(item => document.getElementById(item.href));
+      const sections = navItems.map((item) => document.getElementById(item.href));
       const scrollPosition = window.scrollY + 100; // Offset for navbar height
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -55,28 +64,29 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <nav className="h-[76px] flex items-center justify-between p-4 text-black dark:text-white  flex-no-wrap fixed w-full top-0 z-50 ">
-      <h1 className="text-2xl font-bold flex flex-row items-center">
-        <Image alt='Coder' src={"/programmer.png"} height={36} width={36} />
+    <nav className="h-[76px] flex items-center justify-between p-4 text-black dark:text-white flex-no-wrap fixed w-full top-0 z-50">
+      <div className="flex flex-row items-center">
+        <Image alt="Coder" src={'/programmer.png'} height={36} width={36} />
         <div
-          onClick={() =>router.replace("/") }
-          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors pl-3 cursor-pointer"
+          onClick={() => router.replace('/')}
+          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors pl-3 cursor-pointer text-2xl font-bold font-mono hidden md:block"
         >
-          nironman
+          Nironman
         </div>
-      </h1>
+      </div>
 
-      <div className='flex flex-row items-center gap-1'>
+      <div className="flex flex-row items-center gap-3">
         <Button
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           variant={'outline'}
-          size={'lg'}
-          className='bg-transparent dark:bg-transparent rounded-full border-none'
+          
+          className="bg-transparent dark:bg-transparent rounded-full border-none"
         >
-          {theme === "light" ? <SunFilled style={{ fontSize: '24px' }} /> : <MoonFilled style={{ fontSize: '24px' }} />}
+          {theme === 'light' ? <SunFilled style={{ fontSize: '24px' }} /> : <MoonFilled style={{ fontSize: '24px' }} />}
         </Button>
+
         {pathname === '/' && (
-          <ul className="flex gap-6">
+          <ul className="hidden md:flex gap-8 lg:gap-8">
             {navItems.map((item) => (
               <li
                 key={item.href}
@@ -85,10 +95,26 @@ const NavBar: React.FC = () => {
                   activeSection === item.href ? 'text-blue-500 dark:text-blue-400 font-bold' : ''
                 }`}
               >
-                {item.label}
+                <p>{item.label}</p>
               </li>
             ))}
           </ul>
+        )}
+
+        {pathname === '/' && (
+          <div className="md:hidden flex flex-row items-center gap-8">
+            {navItems.map((item) => (
+              <div
+                key={item.href}
+                onClick={() => handleNavigation(item.href)}
+                className={`hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer text-xl ${
+                  activeSection === item.href ? 'text-blue-500 dark:text-blue-400 font-bold' : ''
+                }`}
+              >
+                {iconMap[item.label as keyof typeof iconMap]}
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </nav>
