@@ -34,8 +34,6 @@ const formSchema = z.object({
 
 const ContactMe: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { handleSubmit } = useForm();
-  const [formData, setFormData] = useState();
   const [iserror, setIsError] = useState<number>(-1);
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -58,10 +56,10 @@ const ContactMe: React.FC = () => {
 
   const handleOnSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true)
-    form.reset();
     const token = captchaRef.current?.getValue();
     if(!token){
       setIsError(2);
+      setIsLoading(false)
       return;
     }
     try {
@@ -74,6 +72,8 @@ const ContactMe: React.FC = () => {
     }
 
     setIsLoading(false)
+    form.reset();
+
 
   };
 
@@ -122,7 +122,7 @@ const ContactMe: React.FC = () => {
       <div className="max-w-lg w-full bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-8">
         <h1 className=" text-center text-2xl font-semibold">Contact me</h1>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleOnSubmit)} className=" space-y-4">
+          <form onSubmit={form.handleSubmit(handleOnSubmit)} className=" space-y-4 ">
             <FormField
               control={form.control}
               name="senderName"
@@ -140,10 +140,12 @@ const ContactMe: React.FC = () => {
             />
 
           {/* Captcha component */}
-          <ReCaptcha
-          sitekey={JSON.stringify(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!)}
+          <div className=' flex justify-center items-center'>
+          <ReCaptcha 
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
           ref={captchaRef}
           ></ReCaptcha>
+          </div>
             {/* final Submit button */}
             <Button className=" w-full" type="submit">{isLoading ? <Loader2 className=" animate-spin"></Loader2> : "Send Email"}</Button>
             {
