@@ -1,20 +1,10 @@
 import { transporter } from "@/config/nodeMailer";
-import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:NextRequest){
-        const reqBody=await req.json();
-        const body =reqBody.data;
-        const token=reqBody.token;
-        const key = process.env.RECAPTCHA_SECRET_KEY;
-
+        const body=await req.json();
+        
         try {
-
-            const verify =await axios.post("https://www.google.com/recaptcha/api/siteverify",`secret=${key}&response=${token}`)
-
-    if (!verify.data.success) {
-      return NextResponse.json({ message: 'Invalid CAPTCHA' },{status:404});
-    }
            const res=await transporter.sendMail({
                 from:process.env.EMAIL,
                 to:process.env.EMAIL,

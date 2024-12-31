@@ -23,8 +23,8 @@ export default function TyperCompo() {
   return (
     <div className="flex flex-col items-start justify-center border border-white p-10 rounded-3xl bg-white  dark:bg-slate-800">
       <h2 className="text-4xl font-semibold">Hello, I am</h2>
-      <TypewriterEffectSmooth words={word2} />
-      <div className="text-neutral-600 dark:text-neutral-200 text-lg sm:text-lg font-semibold mb-4">
+      <TypewriterEffectSmooth className="text-4xl" words={word2} />
+      <div className="text-neutral-600 dark:text-neutral-200 text-lg sm:text-lg font-semibold ">
         I create <FlipWords words={word}></FlipWords> Websites and Applications.
       </div>
      

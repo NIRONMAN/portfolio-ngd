@@ -39,7 +39,7 @@ const NavBar: React.FC = () => {
 
     const handleScroll = () => {
       const sections = navItems.map((item) => document.getElementById(item.href));
-      const scrollPosition = window.scrollY + 100; // Offset for navbar height
+      const scrollPosition = window.scrollY + 100; 
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -64,9 +64,9 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <nav className="h-[76px] flex items-center justify-between p-4 text-black dark:text-white flex-no-wrap fixed w-full top-0 z-50">
+    <nav className="h-[76px] flex items-center justify-between p-4 text-black dark:text-white flex-no-wrap fixed w-full top-0 z-50 backdrop-blur">
       <div className="flex flex-row items-center">
-        <Image alt="Coder" src={'/programmer.png'} height={36} width={36} />
+        <Image className='bg-white rounded-full ' alt="Coder" src={'/nironman-logo.png'} height={36} width={36} />
         <div
           onClick={() => router.replace('/')}
           className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors pl-3 cursor-pointer text-2xl font-bold font-mono hidden md:block"

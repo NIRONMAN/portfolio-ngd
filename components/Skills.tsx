@@ -1,48 +1,87 @@
-import { FC } from 'react';
-import { 
-  SiPython, 
-  SiFlask, 
-  SiJavascript, 
-  SiReact, 
-  SiNextdotjs, 
-  SiNodedotjs, 
-  SiExpress, 
-  SiTailwindcss 
-} from 'react-icons/si';
-import { IconType } from 'react-icons';
+import React, { FC } from 'react';
+
 
 interface Skill {
   name: string;
-  icon: IconType;
+  icon: FC;
 }
 
 const skills: Skill[] = [
-  { name: 'Python', icon: SiPython },
-  { name: 'Flask', icon: SiFlask },
-  { name: 'JavaScript', icon: SiJavascript },
-  { name: 'React', icon: SiReact },
-  { name: 'Next.js', icon: SiNextdotjs },
-  { name: 'Node.js', icon: SiNodedotjs },
-  { name: 'Express', icon: SiExpress },
-  { name: 'React Native', icon: SiReact },
-  { name: 'Tailwind CSS', icon: SiTailwindcss },
+  { name: 'Next.js', icon: ()=>(
+    
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" />
+          
+  ) },
+  { name: 'React', icon: ()=>(
+    
+
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" />
+                    
+  ) },
+  { name: 'React Native', icon: ()=>(
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" />
+
+  )},
+  { name: 'JavaScript', icon: ()=>(
+    
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+          
+  ) },
+  
+  
+  { name: 'Node.js', icon: ()=>(
+    
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" />
+          
+  ) },
+  { name: 'Express', icon: ()=>(
+    
+    <img className=' bg-white' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" />
+          
+          
+  )},
+  
+  { name: 'Tailwind CSS', icon: ()=>(
+    
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" />
+          
+  ) },
+  { name: 'Python', icon: ()=>(<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
+  )
+   },
+  { name: 'Flask', icon:()=>(
+
+    <img className='bg-white' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" />
+          
+  )
+  },
+  
+  {
+    name:'Django Rest Framework',icon:()=>(
+      
+      <img className='bg-white' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/djangorest/djangorest-original.svg" />
+          
+    )
+  }
 ];
 
 const SkillsComponent: FC = () => {
   return (
-    <section className="py-10 min-h-[100vh] flex justify-center items-center">
-      <div className="container mx-auto px-4">
+    <section className="py-10 min-h-[100vh] flex justify-center items-center ">
+      <div className="px-4">
         <h2 className="text-3xl font-bold text-center mb-8 text-primary dark:text-white">Skills</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-14 ">
           {skills.map((skill) => (
             <div
               key={skill.name}
-              className="bg-white dark:bg-black p-4 rounded-lg shadow-md flex flex-col items-center justify-center transition-transform hover:scale-105"
+              className=" h-40 w-40 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md flex flex-col items-center justify-center transition-transform hover:scale-110"
             >
-              <skill.icon className="text-4xl mb-2 " />
+              <skill.icon  />
               <span className="text-center font-medium">{skill.name}</span>
             </div>
           ))}
+          
+          
         </div>
       </div>
     </section>

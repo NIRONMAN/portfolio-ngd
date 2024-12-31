@@ -16,12 +16,12 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Textarea } from "./ui/textarea"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
-import { SiLeetcode } from "react-icons/si"
-import Image from "next/image"
+import ReCaptcha from "react-google-recaptcha"
+import { ReCAPTCHA as ReCAPTCHAType } from 'react-google-recaptcha';
 
 const formSchema = z.object({
   senderName: z.string().min(2, {
@@ -46,6 +46,9 @@ const ContactMe: React.FC = () => {
     }
   })
 
+  //CAptach REf
+  const captchaRef=useRef<ReCAPTCHAType|null>(null);
+
   // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
   //   setFormData({
   //     ...formData,
@@ -55,8 +58,14 @@ const ContactMe: React.FC = () => {
 
   const handleOnSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true)
+    form.reset();
+    const token = captchaRef.current?.getValue();
+    if(!token){
+      setIsError(2);
+      return;
+    }
     try {
-      await axios.post("api/sendmail", data);
+      await axios.post("api/sendmail", {data,token});
       console.log("Sent")
       setIsError(0);
     } catch (error: any) {
@@ -74,7 +83,7 @@ const ContactMe: React.FC = () => {
         <h1 className="pb-2 text-center text-xl font-bold">Contact Card</h1>
 
         {/* LinkedIn */}
-        <a href="https://www.linkedin.com/in/niranjan-dabhade-b5b7a8215/"
+        <a href="https://www.linkedin.com/in/nironman/"
           className="flex flex-row items-center bg-white dark:bg-slate-950 rounded-lg pr-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors">
           <img src="https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw" alt="LinkedIn" className="w-10 h-10 mx-2 rounded-lg" />
           <span>LinkedIn</span>
@@ -88,14 +97,14 @@ const ContactMe: React.FC = () => {
         </a>
 
         {/* LeetCode */}
-        <a href="https://leetcode.com/u/user6665ve/"
+        <a href="https://leetcode.com/u/nironman/"
           className="flex flex-row items-center bg-white dark:bg-slate-950 rounded-lg pr-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors">
           <img src="/Leetcode.svg" alt="Leetcode" className="w-10 h-10 mx-2 rounded-lg" />
           <span>LeetCode</span>
         </a>
 
         {/* Portfolio */}
-        <a href="https://nironman.vercel.app/"
+        <a href="https://nironman.com/"
           className="flex flex-row items-center bg-white dark:bg-slate-950 rounded-lg pr-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors">
           <Globe className="w-10 h-10 mx-2" />
           <span>Portfolio</span>
@@ -130,12 +139,21 @@ const ContactMe: React.FC = () => {
               render={messageItem}
             />
 
+          {/* Captcha component */}
+          <ReCaptcha
+          sitekey={JSON.stringify(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!)}
+          ref={captchaRef}
+          ></ReCaptcha>
+            {/* final Submit button */}
             <Button className=" w-full" type="submit">{isLoading ? <Loader2 className=" animate-spin"></Loader2> : "Send Email"}</Button>
             {
-              iserror === 0 && <div className=" text-center text-green-400">Message sent successfully.</div>
+              iserror === 0 && <div className=" text-center text-green-400 dark:text-green-100">Message sent successfully.</div>
             }
             {
-              iserror === 1 && <div className=" text-center text-red-400">Something went wrong.</div>
+              iserror === 1 && <div className=" text-center text-red-400 dark:text-red-100">Something went wrong.</div>
+            }
+            {
+              iserror === 2 && <div className=" text-center text-red-400 dark:text-red-100">Something went wrong with Captcha.</div>
             }
           </form>
         </Form>
