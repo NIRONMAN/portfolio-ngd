@@ -25,7 +25,7 @@
     "devicon": "^2.16.0",
     "framer-motion": "^11.5.4",
     "lucide-react": "^0.441.0",
-    "next": "14.2.5",
+    "next": "14.2.35",
     "next-themes": "^0.3.0",
     "nodemailer": "^6.9.16",
     "react": "^18",
