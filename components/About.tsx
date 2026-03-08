@@ -1,39 +1,64 @@
+import { BriefcaseBusiness, GraduationCap, Sparkles } from "lucide-react";
 import React from "react";
 
 const About = () => {
   return (
-    <div className="min-h-screen flex justify-center items-center p-8">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 max-w-2xl">
-        <h1 className="text-3xl font-bold mb-6 text-center text-purple-600 dark:text-purple-400">
-          👋 Hi there!
-        </h1>
-        
-        <p className="mb-6 text-gray-700 dark:text-gray-300">
-          I&apos;m a final-year student based in Maharashtra, India, pursuing a Bachelor&apos;s degree in Computer Science and Engineering. 
-          With a strong foundation in full-stack development and a growing interest in artificial intelligence and data science, 
-          I enjoy building innovative applications that solve real-world problems.
-        </p>
-        
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2 text-purple-600 dark:text-purple-400">🎓 Education</h2>
-          <p className="text-gray-700 dark:text-gray-300">
-            <strong>Bachelor&apos;s Degree in Computer Science and Engineering</strong> (Ongoing)<br />
-            Maharashtra Institute of Technology, Aurangabad<br />
-            CGPA: 8.52 (Graduation Date: June 2025)
+    <div className="section-shell">
+      <div className="mb-8">
+        <p className="section-kicker">About</p>
+        <h2 className="section-title">A profile shaped by product thinking and data work.</h2>
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+        <article className="surface-panel p-6 md:p-8">
+          <p className="text-base leading-7 text-muted-foreground md:text-lg">
+            I am a final-year Computer Science and Engineering student from Maharashtra, India.
+            My work focuses on full-stack applications that are practical, maintainable, and
+            visually clear. I am actively blending software engineering fundamentals with modern
+            AI capabilities to build useful products.
           </p>
-        </div>
-        
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2 text-purple-600 dark:text-purple-400">💼 Work Experience</h2>
-          <p className="text-gray-700 dark:text-gray-300">
-            <strong>Data Science Intern</strong> - Findability Sciences, Aurangabad<br />
-            Developed data collection processes and time series forecasting models using Auto ARIMA with 95%-97% accuracy for Nikkei 225 and S&P 500 datasets.
+          <p className="mt-4 text-base leading-7 text-muted-foreground md:text-lg">
+            During my internship experience, I contributed to data collection and time-series
+            forecasting projects, which strengthened my analytical mindset and experimentation
+            process.
           </p>
+        </article>
+
+        <div className="space-y-5">
+          <article className="surface-panel p-6">
+            <div className="flex items-center gap-3">
+              <GraduationCap className="text-primary" size={20} />
+              <h3 className="text-xl font-semibold">Education</h3>
+            </div>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">
+              Bachelor&apos;s in Computer Science and Engineering (ongoing)
+              <br />
+              Maharashtra Institute of Technology, Aurangabad
+              <br />
+              CGPA: 8.52 | Graduation: June 2025
+            </p>
+          </article>
+
+          <article className="surface-panel p-6">
+            <div className="flex items-center gap-3">
+              <BriefcaseBusiness className="text-primary" size={20} />
+              <h3 className="text-xl font-semibold">Work Experience</h3>
+            </div>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">
+              Data Science Intern at Findability Sciences, Aurangabad.
+              <br />
+              Built data collection pipelines and Auto-ARIMA forecasting models with strong
+              prediction reliability on financial market datasets.
+            </p>
+          </article>
+
+          <article className="surface-panel flex items-start gap-3 p-6">
+            <Sparkles className="mt-0.5 text-primary" size={18} />
+            <p className="text-sm leading-6 text-muted-foreground">
+              Currently exploring LLM-assisted product workflows to ship faster and smarter.
+            </p>
+          </article>
         </div>
-        
-        <p className="text-gray-700 dark:text-gray-300">
-          ⚡ I&apos;m currently learning to integrate my Full-Stack skills with LLMs to supercharge my applications.
-        </p>
       </div>
     </div>
   );

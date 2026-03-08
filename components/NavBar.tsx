@@ -1,48 +1,41 @@
 "use client";
-import { Home, UserPlus, Briefcase, Cpu, Mail } from 'lucide-react';
-import { MoonFilled, SunFilled } from '@ant-design/icons';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import { Button } from './ui/button';
-import { useTheme } from 'next-themes';
-import { usePathname, useRouter } from 'next/navigation';
+
+import { BriefcaseBusiness, Home, Mail, Moon, Sun, UserRound, Wrench } from "lucide-react";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { Button } from "./ui/button";
+import { useTheme } from "next-themes";
+import { usePathname, useRouter } from "next/navigation";
 
 type NavItem = {
   label: string;
   href: string;
+  icon: React.ReactNode;
 };
 
 const navItems: NavItem[] = [
-  { label: 'Home', href: 'header' },
-  { label: 'About', href: 'about' },
-  { label: 'Projects', href: 'projects' },
-  { label: 'Skills', href: 'skills' },
-  { label: 'Contact', href: 'contact' },
+  { label: "Home", href: "header", icon: <Home size={18} /> },
+  { label: "About", href: "about", icon: <UserRound size={18} /> },
+  { label: "Projects", href: "projects", icon: <BriefcaseBusiness size={18} /> },
+  { label: "Skills", href: "skills", icon: <Wrench size={18} /> },
+  { label: "Contact", href: "contact", icon: <Mail size={18} /> },
 ];
 
-const iconMap = {
-  Home: <Home />,
-  About: <UserPlus />,
-  Projects: <Briefcase />,
-  Skills: <Cpu />,
-  Contact: <Mail />,
-};
-
 const NavBar: React.FC = () => {
-  const { theme, setTheme } = useTheme();
-  const [activeSection, setActiveSection] = useState('');
+  const { resolvedTheme, setTheme } = useTheme();
+  const [activeSection, setActiveSection] = useState("header");
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    if (pathname !== '/') return;
+    if (pathname !== "/") return;
 
     const handleScroll = () => {
-      const sections = navItems.map((item) => document.getElementById(item.href));
-      const scrollPosition = window.scrollY + 100; 
+      const sectionEls = navItems.map((item) => document.getElementById(item.href));
+      const scrollPosition = window.scrollY + 180;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
+      for (let i = sectionEls.length - 1; i >= 0; i--) {
+        const section = sectionEls[i];
         if (section && section.offsetTop <= scrollPosition) {
           setActiveSection(navItems[i].href);
           break;
@@ -50,72 +43,107 @@ const NavBar: React.FC = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
   const handleNavigation = (href: string) => {
-    if (pathname !== '/') return;
+    if (pathname !== "/") {
+      router.push(`/#${href}`);
+      return;
+    }
 
     const element = document.getElementById(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
   return (
-    <nav className="h-[76px] flex items-center justify-between p-4 text-black dark:text-white flex-no-wrap fixed w-full top-0 z-50 backdrop-blur">
-      <div className="flex flex-row items-center">
-        <Image className='bg-white rounded-full ' alt="Coder" src={'/nironman-logo.png'} height={36} width={36} />
-        <div
-          onClick={() => router.replace('/')}
-          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors pl-3 cursor-pointer text-2xl font-bold font-mono hidden md:block"
+    <nav className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/75 backdrop-blur-xl">
+      <div className="section-shell flex h-16 items-center justify-between gap-3">
+        <button
+          type="button"
+          onClick={() => router.push("/")}
+          className="group flex items-center gap-3 text-left"
         >
-          Nironman
+          <Image
+            className="rounded-full border border-border/70 bg-white"
+            alt="Nironman"
+            src="/nironman-logo.png"
+            height={36}
+            width={36}
+          />
+          <span className="hidden text-lg font-semibold tracking-tight group-hover:text-primary md:block">
+            Niranjan Dabhade
+          </span>
+        </button>
+
+        <div className="flex items-center gap-2 md:gap-3">
+          {pathname === "/" && (
+            <ul className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/70 p-1 md:flex">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.href;
+                return (
+                  <li key={item.href}>
+                    <button
+                      type="button"
+                      onClick={() => handleNavigation(item.href)}
+                      className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all ${
+                        isActive
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+
+          {pathname === "/" && (
+            <ul className="flex items-center gap-1 rounded-full border border-border/70 bg-card/70 p-1 md:hidden">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.href;
+                return (
+                  <li key={item.href}>
+                    <button
+                      type="button"
+                      onClick={() => handleNavigation(item.href)}
+                      className={`rounded-full p-2 transition-all ${
+                        isActive
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                      aria-label={item.label}
+                    >
+                      {item.icon}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+
+          {pathname !== "/" && (
+            <Button variant="outline" onClick={() => router.push("/")} className="rounded-full">
+              Back Home
+            </Button>
+          )}
+
+          <Button
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            variant="outline"
+            size="icon"
+            className="rounded-full"
+            aria-label="Toggle theme"
+          >
+            {resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </Button>
         </div>
-      </div>
-
-      <div className="flex flex-row items-center gap-3">
-        <Button
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          variant={'outline'}
-          
-          className="bg-transparent dark:bg-transparent rounded-full border-none"
-        >
-          {theme === 'light' ? <SunFilled style={{ fontSize: '24px' }} /> : <MoonFilled style={{ fontSize: '24px' }} />}
-        </Button>
-
-        {pathname === '/' && (
-          <ul className="hidden md:flex gap-8 lg:gap-8">
-            {navItems.map((item) => (
-              <li
-                key={item.href}
-                onClick={() => handleNavigation(item.href)}
-                className={`hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer text-xl ${
-                  activeSection === item.href ? 'text-blue-500 dark:text-blue-400 font-bold' : ''
-                }`}
-              >
-                <p>{item.label}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {pathname === '/' && (
-          <div className="md:hidden flex flex-row items-center gap-8">
-            {navItems.map((item) => (
-              <div
-                key={item.href}
-                onClick={() => handleNavigation(item.href)}
-                className={`hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer text-xl ${
-                  activeSection === item.href ? 'text-blue-500 dark:text-blue-400 font-bold' : ''
-                }`}
-              >
-                {iconMap[item.label as keyof typeof iconMap]}
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </nav>
   );

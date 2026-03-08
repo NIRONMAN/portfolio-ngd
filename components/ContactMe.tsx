@@ -1,207 +1,215 @@
-"use client"
-import { Globe, Book, FileText, Laptop, Code } from 'lucide-react';
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
+import { Globe, Github, Linkedin, Loader2 } from "lucide-react";
+import { useRef, useState } from "react";
+import ReCaptcha from "react-google-recaptcha";
+import type { ReCAPTCHA as ReCAPTCHAType } from "react-google-recaptcha";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { useRef, useState } from "react"
-import { Textarea } from "./ui/textarea"
-import axios from "axios"
-import { Loader2 } from "lucide-react"
-import ReCaptcha from "react-google-recaptcha"
-import { ReCAPTCHA as ReCAPTCHAType } from 'react-google-recaptcha';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "./ui/textarea";
 
 const formSchema = z.object({
-  senderName: z.string().min(2, {
-    message: "You can't be serious!"
-  }),
-  email: z.string().email({ message: "Not a valid email." }),
-  message: z.string({ message: "Enter text messsage." })
+  senderName: z.string().min(2, { message: "Please enter your name." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  message: z.string().min(10, { message: "Please add a short message." }),
+});
 
-})
+type FormValues = z.infer<typeof formSchema>;
+
+type SubmitState = "idle" | "success" | "error" | "captcha-error";
+
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/nironman/",
+    icon: <Linkedin size={18} className="text-primary" />,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/NIRONMAN",
+    icon: <Github size={18} className="text-primary" />,
+  },
+  {
+    label: "LeetCode",
+    href: "https://leetcode.com/u/nironman/",
+    icon: <Image src="/Leetcode.svg" alt="LeetCode" width={18} height={18} />,
+  },
+  {
+    label: "Portfolio",
+    href: "https://nironman.com/",
+    icon: <Globe size={18} className="text-primary" />,
+  },
+];
 
 const ContactMe: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [iserror, setIsError] = useState<number>(-1);
-  const form = useForm({
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const captchaRef = useRef<ReCAPTCHAType | null>(null);
+
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      senderName: '',
-      email: '',
-      message: ''
-    }
-  })
+      senderName: "",
+      email: "",
+      message: "",
+    },
+  });
 
-  //CAptach REf
-  const captchaRef=useRef<ReCAPTCHAType|null>(null);
+  const handleOnSubmit = async (data: FormValues) => {
+    setIsLoading(true);
+    setSubmitState("idle");
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value
-  //   });
-  // };
-
-  const handleOnSubmit = async (data: z.infer<typeof formSchema>) => {
-    setIsLoading(true)
     const token = captchaRef.current?.getValue();
-    if(!token){
-      setIsError(2);
-      setIsLoading(false)
+    if (!token) {
+      setSubmitState("captcha-error");
+      setIsLoading(false);
       return;
     }
+
     try {
-      await axios.post("api/sendmail", {data,token});
-      console.log("Sent")
-      setIsError(0);
-    } catch (error: any) {
-      console.log("Error", error.message)
-      setIsError(1);
+      await axios.post("/api/sendmail", { data, token });
+      setSubmitState("success");
+      form.reset();
+      captchaRef.current?.reset();
+    } catch {
+      setSubmitState("error");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false)
-    form.reset();
-
-
   };
 
   return (
-    <div className="min-h-screen  flex-col justify-center items-center p-4 space-y-4 md:flex md:flex-row md:space-x-4">
-      <div className="bg-white dark:bg-gray-800  w-full p-6 rounded-lg flex justify-center flex-col items-center space-y-4 max-w-lg ">
-        <h1 className="pb-2 text-center text-xl font-bold">Contact Card</h1>
+    <div className="section-shell">
+      <p className="section-kicker">Contact</p>
+      <h2 className="section-title">Let&apos;s discuss your next product or collaboration.</h2>
 
-        {/* LinkedIn */}
-        <a href="https://www.linkedin.com/in/nironman/"
-          className="flex flex-row items-center bg-white dark:bg-slate-950 rounded-lg pr-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors">
-          <img src="https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw" alt="LinkedIn" className="w-10 h-10 mx-2 rounded-lg" />
-          <span>LinkedIn</span>
-        </a>
+      <div className="mt-8 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="surface-panel p-6 md:p-7">
+          <h3 className="text-2xl font-semibold">Find me online</h3>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            I usually reply quickly on LinkedIn and email for project or internship opportunities.
+          </p>
 
-        {/* GitHub */}
-        <a href="https://github.com/NIRONMAN"
-          className="flex flex-row items-center bg-white dark:bg-slate-950 rounded-lg pr-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors">
-          <img src="https://imgs.search.brave.com/xxsA4YxzaR0cl-DBsH9-lpv2gsif3KMYgM87p26bs_o/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYWQyNWM1NjA5/ZjZmZjNlYzI2MDNk/N2VkNmJhYjE2MzZl/MDY5ZTMxMDUzZmY1/NmU3NWIzNWVmMjk0/NTBjMjJjZi9naXRo/dWIuY29tLw" alt="LinkedIn" className="w-10 h-10 mx-2 rounded-lg bg-white" />
-          <span>GitHub</span>
-        </a>
-
-        {/* LeetCode */}
-        <a href="https://leetcode.com/u/nironman/"
-          className="flex flex-row items-center bg-white dark:bg-slate-950 rounded-lg pr-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors">
-          <img src="/Leetcode.svg" alt="Leetcode" className="w-10 h-10 mx-2 rounded-lg" />
-          <span>LeetCode</span>
-        </a>
-
-        {/* Portfolio */}
-        <a href="https://nironman.com/"
-          className="flex flex-row items-center bg-white dark:bg-slate-950 rounded-lg pr-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors">
-          <Globe className="w-10 h-10 mx-2" />
-          <span>Portfolio</span>
-        </a>
-
-        {/* Resume */}
-        <a href="https://niranjan-dabhade-resume.tiiny.site/"
-          className="flex flex-row items-center bg-white dark:bg-slate-950 rounded-lg pr-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors">
-          <FileText className="w-10 h-10 mx-2" />
-          <span>Resume</span>
-        </a>
-
-
-      </div>
-      <div className="max-w-lg w-full bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-8">
-        <h1 className=" text-center text-2xl font-semibold">Contact me</h1>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleOnSubmit)} className=" space-y-4 ">
-            <FormField
-              control={form.control}
-              name="senderName"
-              render={senderItem}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={emailItem}
-            />
-            <FormField
-              control={form.control}
-              name="message"
-              render={messageItem}
-            />
-
-          {/* Captcha component */}
-          <div className=' flex justify-center items-center'>
-          <ReCaptcha 
-          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-          ref={captchaRef}
-          ></ReCaptcha>
+          <div className="mt-6 space-y-3">
+            {socialLinks.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 rounded-xl border border-border/80 bg-background/70 px-4 py-3 text-sm font-medium text-foreground transition hover:bg-secondary"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/80 bg-card">
+                  {item.icon}
+                </span>
+                {item.label}
+              </Link>
+            ))}
           </div>
-            {/* final Submit button */}
-            <Button className=" w-full" type="submit">{isLoading ? <Loader2 className=" animate-spin"></Loader2> : "Send Email"}</Button>
-            {
-              iserror === 0 && <div className=" text-center text-green-400 dark:text-green-100">Message sent successfully.</div>
-            }
-            {
-              iserror === 1 && <div className=" text-center text-red-400 dark:text-red-100">Something went wrong.</div>
-            }
-            {
-              iserror === 2 && <div className=" text-center text-red-400 dark:text-red-100">Something went wrong with Captcha.</div>
-            }
-          </form>
-        </Form>
+
+          <Link
+            href="/Resume.pdf"
+            className="mt-5 inline-flex items-center rounded-full border border-border px-4 py-2 text-sm font-medium hover:bg-secondary"
+            target="_blank"
+          >
+            Open Resume
+          </Link>
+        </div>
+
+        <div className="surface-panel p-6 md:p-8">
+          <h3 className="text-2xl font-semibold">Send a message</h3>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            Share your goal, timeline, and scope. I&apos;ll get back with a clear response.
+          </p>
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleOnSubmit)} className="mt-6 space-y-4">
+              <FormField
+                control={form.control}
+                name="senderName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Your Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Your Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Message</FormLabel>
+                    <FormControl>
+                      <Textarea rows={6} placeholder="Tell me about your project" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="flex justify-center overflow-x-auto py-1">
+                <ReCaptcha sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!} ref={captchaRef} />
+              </div>
+
+              <Button className="w-full" type="submit" disabled={isLoading}>
+                {isLoading ? <Loader2 className="animate-spin" /> : "Send Message"}
+              </Button>
+
+              {submitState === "success" && (
+                <p className="text-center text-sm text-green-600 dark:text-green-400">
+                  Message sent successfully.
+                </p>
+              )}
+              {submitState === "error" && (
+                <p className="text-center text-sm text-red-600 dark:text-red-400">
+                  Something went wrong while sending your message.
+                </p>
+              )}
+              {submitState === "captcha-error" && (
+                <p className="text-center text-sm text-red-600 dark:text-red-400">
+                  Please complete the captcha before submitting.
+                </p>
+              )}
+            </form>
+          </Form>
+        </div>
       </div>
     </div>
   );
 };
-
-const senderItem = ({ field }: any) => (
-  <FormItem>
-    <FormLabel>
-      Your Name
-    </FormLabel>
-    <FormControl>
-      <Input placeholder="Enter your name..." {...field}></Input>
-    </FormControl>
-    {/* <FormDescription>
-      Your name which will appear in the Email that you are sending.
-    </FormDescription> */}
-    <FormMessage></FormMessage>
-  </FormItem>
-)
-
-const emailItem = ({ field }: any) => (
-  <FormItem>
-    <FormLabel>
-      Your Email Address
-    </FormLabel>
-    <FormControl>
-      <Input placeholder="Enter your email..." {...field}></Input>
-    </FormControl>
-    {/* <FormDescription>Your email address so that I can reply to you.</FormDescription> */}
-    <FormMessage></FormMessage>
-  </FormItem>
-)
-const messageItem = ({ field }: any) => (
-  <FormItem>
-    <FormLabel>
-      Your Message to me
-    </FormLabel>
-    <FormControl>
-      <Textarea rows={6} placeholder="Enter you message..."  {...field}></Textarea>
-    </FormControl>
-    {/* <FormDescription>The message that you want me to convey.</FormDescription> */}
-    <FormMessage></FormMessage>
-  </FormItem>
-)
 
 export default ContactMe;
