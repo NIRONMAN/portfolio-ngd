@@ -31,13 +31,22 @@ const EXCLUDED_REPO_NAME = "portfolio-ngd";
 
 const curatedProjects: Project[] = [
   {
-    title: "Learnability 2.0",
+    title: "Learnability AI 2.0",
     description:
-      "An advanced learning platform with revision, flashcards, mind maps, and RAG support for long-context educational workflows.",
+      "AI-driven educational platform processing large docs via LlamaParse & LangChain RAG pipeline (handling 1,000+ concurrent queries), interactive Mermaid mind maps, and FFmpeg video pipelines.",
     imageUrl: "/Logo.svg",
     gitHubLink: "https://github.com/NIRONMAN/Learnability_2.0",
     route: "/Learnability2.0",
-    tags: ["Next.js", "RAG", "Education"],
+    tags: ["Next.js", "Flask", "LangChain", "RAG", "Firebase"],
+  },
+  {
+    title: "InfectiGuard",
+    description:
+      "Offline-first hospital ICU monitoring & audit mobile platform with biomedical waste tracking, Firebase Firestore syncing, and automated Excel reporting.",
+    imageUrl: "/programmer.png",
+    gitHubLink: "https://github.com/NIRONMAN/InfectiGuard",
+    route: "/InfectiGuard",
+    tags: ["React Native", "Redux", "Firebase", "Expo"],
   },
   {
     title: "High Blogs",

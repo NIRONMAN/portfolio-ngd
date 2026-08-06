@@ -69,9 +69,9 @@ const NavBar: React.FC = () => {
           className="group flex items-center gap-3 text-left"
         >
           <Image
-            className="rounded-full border border-border/70 bg-white"
+            className="rounded-full border border-border/70 bg-black"
             alt="Nironman"
-            src="/nironman-logo.png"
+            src="/new-logo.png"
             height={36}
             width={36}
           />
@@ -90,11 +90,10 @@ const NavBar: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleNavigation(item.href)}
-                      className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all ${
-                        isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
+                      className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all ${isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                        }`}
                     >
                       {item.label}
                     </button>
@@ -113,11 +112,10 @@ const NavBar: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleNavigation(item.href)}
-                      className={`rounded-full p-2 transition-all ${
-                        isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
+                      className={`rounded-full p-2 transition-all ${isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                        }`}
                       aria-label={item.label}
                     >
                       {item.icon}

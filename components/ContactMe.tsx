@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { Globe, Github, Linkedin, Loader2 } from "lucide-react";
+import { Globe, Github, Linkedin, Loader2, Mail } from "lucide-react";
 import { useRef, useState } from "react";
 import ReCaptcha from "react-google-recaptcha";
 import type { ReCAPTCHA as ReCAPTCHAType } from "react-google-recaptcha";
@@ -35,6 +35,11 @@ type SubmitState = "idle" | "success" | "error" | "captcha-error";
 
 const socialLinks = [
   {
+    label: "Email: niranjan.dabhade7@gmail.com",
+    href: "mailto:niranjan.dabhade7@gmail.com",
+    icon: <Mail size={18} className="text-primary" />,
+  },
+  {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/nironman/",
     icon: <Linkedin size={18} className="text-primary" />,
@@ -48,11 +53,6 @@ const socialLinks = [
     label: "LeetCode",
     href: "https://leetcode.com/u/nironman/",
     icon: <Image src="/Leetcode.svg" alt="LeetCode" width={18} height={18} />,
-  },
-  {
-    label: "Portfolio",
-    href: "https://nironman.com/",
-    icon: <Globe size={18} className="text-primary" />,
   },
 ];
 

@@ -51,18 +51,18 @@ const Header: React.FC = () => {
     <div className="section-shell">
       <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <p className="section-kicker">Full-Stack Developer</p>
+          <p className="section-kicker">Jr. Software Engineer</p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight text-foreground md:text-6xl">
             Niranjan Dabhade
           </h1>
           <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground md:text-base">
             <Sparkles size={16} className="text-primary" />
-            Building thoughtful digital products with React, Next.js and AI workflows.
+            Architecting enterprise backends, GitOps cloud pipelines & AI workflows.
           </p>
 
           <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">
-            Final-year computer science student focused on building robust web products with
-            clean UX, reliable architecture, and measurable outcomes.
+            Jr. Software Engineer at Findability Sciences with expertise in Java Spring Boot, Next.js,
+            Cloud & DevOps (ArgoCD, Kubernetes, Docker, Ansible), and AI Engineering (RAG, LangChain, NLQ).
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">

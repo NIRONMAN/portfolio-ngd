@@ -10,17 +10,15 @@ const ProjectDetails: React.FC = () => {
   const router = useRouter();
 
   const projectData = {
-    title: "Learnability 2.0",
+    title: "Learnability AI 2.0",
     githubUrl: "https://github.com/NIRONMAN/Learnability_2.0",
     additionalReferences: [],
     description: `
-      <p>Learnability AI 2.0</p>
-      <p><strong>Technologies:</strong> Next.js, Flask, Firebase Firestore, RAG (Retrieval-Augmented Generation)</p>
+      <p><strong>Technologies:</strong> Next.js, Flask, LangChain, Firebase, LlamaParse, yt-dlp, FFmpeg</p>
       <ul>
-        <li>Developed an advanced educational application designed to enhance student learning through multiple modes including learning, revision, flashcards, and mind maps.</li>
-        <li>Implemented a RAG system to handle large contextual datasets, improving the relevance and depth of information retrieval.</li>
-        <li>Leveraged Firebase Firestore for efficient data storage and retrieval, ensuring seamless user experience.</li>
-        <li>Utilized Next.js for both frontend and backend development, integrating Flask for the backend RAG functionalities to ensure robust performance.</li>
+        <li>Built an AI-driven learning platform processing large documents via LlamaParse and a LangChain RAG pipeline, successfully scaling to handle 1,000+ concurrent queries.</li>
+        <li>Boosted user engagement by 25% by implementing interactive Mermaid-based mind maps and flashcards for optimized student retention.</li>
+        <li>Automated content generation pipelines using yt-dlp and FFmpeg to extract, parse, and summarize technical video resources seamlessly.</li>
       </ul>
     `
   };
