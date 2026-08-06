@@ -63,11 +63,11 @@ const Header: React.FC = () => {
           </div>
 
           <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-6xl leading-[1.1]">
-            Building Enterprise Systems, <span className="text-gradient">GitOps Cloud</span> & <span className="text-gradient-gold">AI Workflows</span>.
+            Building Scalable Backends, <span className="text-gradient">Cloud Infrastructure</span> & <span className="text-gradient-gold">AI Workflows</span>.
           </h1>
 
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Specialized in <strong className="text-foreground font-semibold">Java Spring Boot SSO</strong>, real-time <strong className="text-foreground font-semibold">BigQuery & Pub/Sub telemetry</strong>, <strong className="text-foreground font-semibold">ArgoCD & Kubernetes GitOps</strong>, and <strong className="text-foreground font-semibold">LangChain RAG</strong> orchestration.
+            Focused on <strong className="text-foreground font-semibold">Java Spring Boot</strong>, cloud-native deployments with <strong className="text-foreground font-semibold">Kubernetes & ArgoCD</strong>, data pipelines via <strong className="text-foreground font-semibold">BigQuery</strong>, and integrating <strong className="text-foreground font-semibold">LLM tools</strong>.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">

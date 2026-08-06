@@ -34,7 +34,7 @@ const curatedProjects: Project[] = [
   {
     title: "Learnability AI 2.0",
     description:
-      "AI-driven educational platform processing large docs via LlamaParse & LangChain RAG pipeline (handling 1,000+ concurrent queries), interactive Mermaid mind maps, and FFmpeg video pipelines.",
+      "AI-driven educational platform processing documents via LlamaParse & LangChain RAG pipeline, featuring interactive Mermaid mind maps and FFmpeg media processing.",
     imageUrl: "/Logo.svg",
     gitHubLink: "https://github.com/NIRONMAN/Learnability_2.0",
     route: "/Learnability2.0",

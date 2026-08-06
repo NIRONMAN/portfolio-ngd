@@ -2,9 +2,9 @@ import { BriefcaseBusiness, GraduationCap, ShieldCheck, Cpu, Sparkles, TrendingU
 import React from "react";
 
 const impactMetrics = [
-  { label: "CI/CD Deployment Speedup", value: "78%", detail: "45m to 10m via ArgoCD", color: "text-blue-500" },
-  { label: "SSO User Scale", value: "1,000+", detail: "4 Enterprise Suites", color: "text-purple-500" },
-  { label: "RAG Executive Retrieval", value: "-70%", detail: "Time Reduction", color: "text-emerald-500" },
+  { label: "Deployment Strategy", value: "GitOps", detail: "ArgoCD & Kubernetes", color: "text-blue-500" },
+  { label: "Backend Architecture", value: "Microservices", detail: "Spring Boot & Redis", color: "text-purple-500" },
+  { label: "AI Integration", value: "RAG Systems", detail: "LangChain & LLMs", color: "text-emerald-500" },
 ];
 
 const About = () => {
@@ -15,7 +15,7 @@ const About = () => {
           <Sparkles size={14} />
           About Me
         </p>
-        <h2 className="section-title">Engineered for Enterprise Backends, GitOps & AI Orchestration.</h2>
+        <h2 className="section-title">Software Engineer focused on Backend, Cloud & AI.</h2>
       </div>
 
       {/* Impact metrics highlight bar */}
@@ -43,7 +43,7 @@ const About = () => {
               I am a Jr. Software Engineer at <strong className="text-foreground font-semibold">Findability Sciences</strong> holding a B.Tech in Computer Science and Engineering (CGPA: 8.6) from Maharashtra Institute of Technology.
             </p>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              My core focus is building resilient <strong className="text-foreground font-semibold">Java Spring Boot SSO backends</strong> with Redis caching, orchestrating real-time telemetry streaming over <strong className="text-foreground font-semibold">BigQuery & Pub/Sub</strong>, enforcing GitOps pipeline automation via <strong className="text-foreground font-semibold">ArgoCD & Kubernetes</strong>, and deploying state-of-the-art <strong className="text-foreground font-semibold">RAG & NLQ AI agents</strong>.
+              My core focus is building resilient <strong className="text-foreground font-semibold">Java Spring Boot backends</strong>, processing data at scale with <strong className="text-foreground font-semibold">BigQuery & Pub/Sub</strong>, automating deployments via <strong className="text-foreground font-semibold">ArgoCD & Kubernetes</strong>, and integrating practical <strong className="text-foreground font-semibold">AI workflows</strong>.
             </p>
           </article>
 
@@ -97,19 +97,19 @@ const About = () => {
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="text-primary font-bold">•</span>
-                    <span>Engineered centralized <strong className="text-foreground font-semibold">SSO authentication</strong> across a 4-product enterprise suite (1000+ users) using <strong className="text-foreground font-semibold">Java Spring Boot, Auth0, PKCE</strong> & Redis (30–50% latency drop).</span>
+                    <span>Developed a centralized <strong className="text-foreground font-semibold">SSO authentication service</strong> across a 4-product suite using <strong className="text-foreground font-semibold">Java Spring Boot, Auth0, and Redis</strong>.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-primary font-bold">•</span>
-                    <span>Architected factory digital twin telemetry using <strong className="text-foreground font-semibold">BigQuery & Pub/Sub</strong> (40% query cost reduction).</span>
+                    <span>Built telemetry data pipelines for device monitoring using <strong className="text-foreground font-semibold">BigQuery & Pub/Sub</strong>, optimizing query costs.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-primary font-bold">•</span>
-                    <span>Accelerated CI/CD speeds by <strong className="text-foreground font-semibold">78%</strong> (45m to 10m) migrating Kubernetes pipelines to <strong className="text-foreground font-semibold">ArgoCD & Ansible</strong>.</span>
+                    <span>Streamlined CI/CD deployments by migrating Kubernetes workloads to <strong className="text-foreground font-semibold">ArgoCD</strong>, significantly reducing release times.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-primary font-bold">•</span>
-                    <span>Deployed <strong className="text-foreground font-semibold">Prometheus & Grafana</strong> telemetry across 15+ production servers (60% faster incident detection).</span>
+                    <span>Set up infrastructure monitoring with <strong className="text-foreground font-semibold">Prometheus & Grafana</strong> across production environments.</span>
                   </li>
                 </ul>
               </div>
@@ -124,15 +124,15 @@ const About = () => {
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="text-muted-foreground font-bold">•</span>
-                    <span>Architected a <strong className="text-foreground font-semibold">RAG & NLQ orchestration system</strong> for enterprise metadata search, adopted by 3 BI teams (70% executive retrieval time reduction).</span>
+                    <span>Contributed to a <strong className="text-foreground font-semibold">RAG-based search system</strong> for internal data retrieval, used by BI teams.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-muted-foreground font-bold">•</span>
-                    <span>Built full-stack BI chatbots using <strong className="text-foreground font-semibold">Next.js & FastAPI</strong>, serving 50 active internal users.</span>
+                    <span>Built internal dashboard applications using <strong className="text-foreground font-semibold">Next.js & FastAPI</strong>.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-muted-foreground font-bold">•</span>
-                    <span>Accelerated UI development by 25% with shared <strong className="text-foreground font-semibold">Storybook</strong> component library on GCP npm registry.</span>
+                    <span>Maintained a shared <strong className="text-foreground font-semibold">Storybook</strong> UI component library hosted on GCP Artifact Registry.</span>
                   </li>
                 </ul>
               </div>
