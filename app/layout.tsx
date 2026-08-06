@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from 'next-themes';
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -16,8 +17,8 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Niranjan Dabhade | Portfolio",
-  description: "Portfolio of Niranjan Dabhade, full-stack developer and AI enthusiast.",
+  title: "Niranjan Dabhade | Jr. Software Engineer & AI Orchestration",
+  description: "Portfolio of Niranjan Dabhade, Jr. Software Engineer at Findability Sciences specializing in Java Spring Boot, GitOps Cloud & AI RAG Workflows.",
 };
 
 export default function RootLayout({
@@ -31,12 +32,14 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
 
-      <body className={`${manrope.variable} ${cormorant.variable} font-sans`}>
+      <body className={`${manrope.variable} ${cormorant.variable} font-sans min-h-screen flex flex-col justify-between`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <NavBar />
-          {children}
+          <div className="flex-1">{children}</div>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
   );
 }
+

@@ -14,11 +14,11 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { label: "Home", href: "header", icon: <Home size={18} /> },
-  { label: "About", href: "about", icon: <UserRound size={18} /> },
-  { label: "Projects", href: "projects", icon: <BriefcaseBusiness size={18} /> },
-  { label: "Skills", href: "skills", icon: <Wrench size={18} /> },
-  { label: "Contact", href: "contact", icon: <Mail size={18} /> },
+  { label: "Home", href: "header", icon: <Home size={16} /> },
+  { label: "About", href: "about", icon: <UserRound size={16} /> },
+  { label: "Projects", href: "projects", icon: <BriefcaseBusiness size={16} /> },
+  { label: "Skills", href: "skills", icon: <Wrench size={16} /> },
+  { label: "Contact", href: "contact", icon: <Mail size={16} /> },
 ];
 
 const NavBar: React.FC = () => {
@@ -61,90 +61,109 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/75 backdrop-blur-xl">
-      <div className="section-shell flex h-16 items-center justify-between gap-3">
-        <button
-          type="button"
-          onClick={() => router.push("/")}
-          className="group flex items-center gap-3 text-left"
-        >
-          <Image
-            className="rounded-full border border-border/70 bg-black"
-            alt="Nironman"
-            src="/new-logo.png"
-            height={36}
-            width={36}
-          />
-          <span className="hidden text-lg font-semibold tracking-tight group-hover:text-primary md:block">
-            Niranjan Dabhade
-          </span>
-        </button>
-
-        <div className="flex items-center gap-2 md:gap-3">
-          {pathname === "/" && (
-            <ul className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/70 p-1 md:flex">
-              {navItems.map((item) => {
-                const isActive = activeSection === item.href;
-                return (
-                  <li key={item.href}>
-                    <button
-                      type="button"
-                      onClick={() => handleNavigation(item.href)}
-                      className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all ${isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                        }`}
-                    >
-                      {item.label}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-
-          {pathname === "/" && (
-            <ul className="flex items-center gap-1 rounded-full border border-border/70 bg-card/70 p-1 md:hidden">
-              {navItems.map((item) => {
-                const isActive = activeSection === item.href;
-                return (
-                  <li key={item.href}>
-                    <button
-                      type="button"
-                      onClick={() => handleNavigation(item.href)}
-                      className={`rounded-full p-2 transition-all ${isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                        }`}
-                      aria-label={item.label}
-                    >
-                      {item.icon}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-
-          {pathname !== "/" && (
-            <Button variant="outline" onClick={() => router.push("/")} className="rounded-full">
-              Back Home
-            </Button>
-          )}
-
-          <Button
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            variant="outline"
-            size="icon"
-            className="rounded-full"
-            aria-label="Toggle theme"
+    <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-3">
+        <div className="flex h-14 items-center justify-between gap-3 rounded-full border border-border/60 bg-background/70 px-4 shadow-lg shadow-black/5 backdrop-blur-xl dark:bg-card/50 dark:shadow-black/20">
+          <button
+            type="button"
+            onClick={() => router.push("/")}
+            className="group flex items-center gap-2.5 text-left focus:outline-none"
           >
-            {resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </Button>
+            <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-border/80 bg-black/5 shadow-inner">
+              <Image
+                className="rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+                alt="Nironman"
+                src="/new-logo.png"
+                height={32}
+                width={32}
+              />
+            </div>
+            <div className="hidden flex-col sm:flex">
+              <span className="text-sm font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                Niranjan Dabhade
+              </span>
+              <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Available for Engineering
+              </span>
+            </div>
+          </button>
+
+          <div className="flex items-center gap-2">
+            {pathname === "/" && (
+              <nav aria-label="Main Navigation">
+                <ul className="hidden items-center gap-1 rounded-full border border-border/50 bg-secondary/50 p-1 md:flex">
+                  {navItems.map((item) => {
+                    const isActive = activeSection === item.href;
+                    return (
+                      <li key={item.href}>
+                        <button
+                          type="button"
+                          onClick={() => handleNavigation(item.href)}
+                          className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200 ${
+                            isActive
+                              ? "bg-primary text-primary-foreground shadow-sm scale-105"
+                              : "text-muted-foreground hover:text-foreground hover:bg-background/40"
+                          }`}
+                        >
+                          {item.icon}
+                          {item.label}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                <ul className="flex items-center gap-1 rounded-full border border-border/50 bg-secondary/50 p-1 md:hidden">
+                  {navItems.map((item) => {
+                    const isActive = activeSection === item.href;
+                    return (
+                      <li key={item.href}>
+                        <button
+                          type="button"
+                          onClick={() => handleNavigation(item.href)}
+                          className={`rounded-full p-2 transition-all ${
+                            isActive
+                              ? "bg-primary text-primary-foreground shadow-sm"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                          aria-label={item.label}
+                        >
+                          {item.icon}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+            )}
+
+            {pathname !== "/" && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => router.push("/")}
+                className="rounded-full text-xs font-medium border-border/70 hover:bg-secondary"
+              >
+                Back Home
+              </Button>
+            )}
+
+            <Button
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary/70 transition-transform active:scale-95"
+              aria-label="Toggle theme"
+            >
+              {resolvedTheme === "dark" ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} />}
+            </Button>
+          </div>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 
 export default NavBar;
+
