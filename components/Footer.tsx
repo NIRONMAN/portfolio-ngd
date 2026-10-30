@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
 
@@ -11,62 +10,49 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="mt-24 border-t border-border/60 bg-background/80 backdrop-blur-xl py-12">
-      <div className="section-shell flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-3">
-          <Image
-            alt="Niranjan Dabhade"
-            src="/new-logo.png"
-            width={32}
-            height={32}
-            className="rounded-full border border-border/80 bg-black"
-          />
-          <div>
-            <p className="text-sm font-bold text-foreground">Niranjan Dabhade</p>
-            <p className="text-xs text-muted-foreground">
-              Jr. Software Engineer • Enterprise Backends, GitOps & AI Workflows
-            </p>
-          </div>
+    <footer className="mt-20 border-t border-border/80 bg-background py-10 dark:border-white/[0.08]">
+      <div className="section-shell flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-2.5">
+          <span className="flex h-2 w-2 rounded-full bg-indigo-500" />
+          <p className="text-xs font-mono text-muted-foreground">
+            © {new Date().getFullYear()} Niranjan Dabhade • Backend Systems &amp; Cloud Infrastructure
+          </p>
         </div>
 
-        <div className="flex items-center gap-4 text-muted-foreground">
+        <div className="flex items-center gap-3">
           <Link
             href="https://github.com/NIRONMAN"
             target="_blank"
             rel="noreferrer"
-            className="hover:text-foreground transition-colors p-2 rounded-full hover:bg-secondary"
-            aria-label="GitHub"
+            className="text-muted-foreground hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors p-1.5"
+            aria-label="GitHub Profile"
           >
-            <Github size={18} />
+            <Github size={15} />
           </Link>
           <Link
             href="https://www.linkedin.com/in/nironman/"
             target="_blank"
             rel="noreferrer"
-            className="hover:text-foreground transition-colors p-2 rounded-full hover:bg-secondary"
-            aria-label="LinkedIn"
+            className="text-muted-foreground hover:text-sky-600 dark:hover:text-sky-400 transition-colors p-1.5"
+            aria-label="LinkedIn Profile"
           >
-            <Linkedin size={18} />
+            <Linkedin size={15} />
           </Link>
           <Link
             href="mailto:niranjan.dabhade7@gmail.com"
-            className="hover:text-foreground transition-colors p-2 rounded-full hover:bg-secondary"
-            aria-label="Email"
+            className="text-muted-foreground hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors p-1.5"
+            aria-label="Send Email"
           >
-            <Mail size={18} />
+            <Mail size={15} />
           </Link>
           <button
             onClick={scrollToTop}
-            className="ml-2 flex h-9 w-9 items-center justify-center rounded-full border border-border/80 bg-secondary/80 text-foreground transition hover:scale-110 hover:bg-primary hover:text-primary-foreground"
-            aria-label="Scroll to top"
+            className="ml-2 font-mono text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
+            aria-label="Back to top"
           >
-            <ArrowUp size={16} />
+            top <ArrowUp size={12} />
           </button>
         </div>
-      </div>
-
-      <div className="section-shell mt-8 text-center text-xs text-muted-foreground pt-6 border-t border-border/40">
-        © {new Date().getFullYear()} Niranjan Dabhade. Built with Next.js, TypeScript & Tailwind CSS.
       </div>
     </footer>
   );

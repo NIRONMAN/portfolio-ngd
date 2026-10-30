@@ -1,7 +1,6 @@
 "use client";
 
-import { BriefcaseBusiness, Home, Mail, Moon, Sun, UserRound, Wrench } from "lucide-react";
-import Image from "next/image";
+import { Moon, Sun, ArrowLeft } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { useTheme } from "next-themes";
@@ -10,29 +9,32 @@ import { usePathname, useRouter } from "next/navigation";
 type NavItem = {
   label: string;
   href: string;
-  icon: React.ReactNode;
 };
 
 const navItems: NavItem[] = [
-  { label: "Home", href: "header", icon: <Home size={16} /> },
-  { label: "About", href: "about", icon: <UserRound size={16} /> },
-  { label: "Projects", href: "projects", icon: <BriefcaseBusiness size={16} /> },
-  { label: "Skills", href: "skills", icon: <Wrench size={16} /> },
-  { label: "Contact", href: "contact", icon: <Mail size={16} /> },
+  { label: "About", href: "about" },
+  { label: "Projects", href: "projects" },
+  { label: "Skills", href: "skills" },
+  { label: "Contact", href: "contact" },
 ];
 
 const NavBar: React.FC = () => {
   const { resolvedTheme, setTheme } = useTheme();
-  const [activeSection, setActiveSection] = useState("header");
+  const [activeSection, setActiveSection] = useState("");
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (pathname !== "/") return;
 
     const handleScroll = () => {
       const sectionEls = navItems.map((item) => document.getElementById(item.href));
-      const scrollPosition = window.scrollY + 180;
+      const scrollPosition = window.scrollY + 200;
 
       for (let i = sectionEls.length - 1; i >= 0; i--) {
         const section = sectionEls[i];
@@ -44,7 +46,7 @@ const NavBar: React.FC = () => {
     };
 
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
@@ -60,105 +62,74 @@ const NavBar: React.FC = () => {
     }
   };
 
+  const isHome = pathname === "/";
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-3">
-        <div className="flex h-14 items-center justify-between gap-3 rounded-full border border-border/60 bg-background/70 px-4 shadow-lg shadow-black/5 backdrop-blur-xl dark:bg-card/50 dark:shadow-black/20">
-          <button
-            type="button"
-            onClick={() => router.push("/")}
-            className="group flex items-center gap-2.5 text-left focus:outline-none"
-          >
-            <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-border/80 bg-black/5 shadow-inner">
-              <Image
-                className="rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
-                alt="Nironman"
-                src="/new-logo.png"
-                height={32}
-                width={32}
-              />
-            </div>
-            <div className="hidden flex-col sm:flex">
-              <span className="text-sm font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
-                Niranjan Dabhade
-              </span>
-              <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Available for Engineering
-              </span>
-            </div>
-          </button>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/80 bg-background/85 backdrop-blur-md dark:border-white/[0.08]">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
+        {/* Name / Brand Mark with subtle indigo tint */}
+        <button
+          type="button"
+          onClick={() => router.push("/")}
+          className="flex items-center gap-2.5 text-left focus:outline-none group"
+        >
+          <div className="flex h-7 w-7 items-center justify-center rounded-md border border-indigo-500/30 bg-indigo-500/10 font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400 transition-colors group-hover:bg-indigo-500/20">
+            ND
+          </div>
+          <span className="text-sm font-bold tracking-tight text-foreground group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+            Niranjan Dabhade
+          </span>
+        </button>
 
-          <div className="flex items-center gap-2">
-            {pathname === "/" && (
-              <nav aria-label="Main Navigation">
-                <ul className="hidden items-center gap-1 rounded-full border border-border/50 bg-secondary/50 p-1 md:flex">
-                  {navItems.map((item) => {
-                    const isActive = activeSection === item.href;
-                    return (
-                      <li key={item.href}>
-                        <button
-                          type="button"
-                          onClick={() => handleNavigation(item.href)}
-                          className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-200 ${
-                            isActive
-                              ? "bg-primary text-primary-foreground shadow-sm scale-105"
-                              : "text-muted-foreground hover:text-foreground hover:bg-background/40"
-                          }`}
-                        >
-                          {item.icon}
-                          {item.label}
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
+        {/* Navigation Items */}
+        <div className="flex items-center gap-4">
+          {isHome ? (
+            <nav aria-label="Main Navigation">
+              <ul className="flex items-center gap-1 sm:gap-2">
+                {navItems.map((item) => {
+                  const isActive = activeSection === item.href;
+                  return (
+                    <li key={item.href}>
+                      <button
+                        type="button"
+                        onClick={() => handleNavigation(item.href)}
+                        className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                          isActive
+                            ? "bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-500/20"
+                            : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                        }`}
+                      >
+                        {item.label}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => router.push("/")}
+              className="text-xs font-medium text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft size={13} className="mr-1.5" />
+              Overview
+            </Button>
+          )}
 
-                <ul className="flex items-center gap-1 rounded-full border border-border/50 bg-secondary/50 p-1 md:hidden">
-                  {navItems.map((item) => {
-                    const isActive = activeSection === item.href;
-                    return (
-                      <li key={item.href}>
-                        <button
-                          type="button"
-                          onClick={() => handleNavigation(item.href)}
-                          className={`rounded-full p-2 transition-all ${
-                            isActive
-                              ? "bg-primary text-primary-foreground shadow-sm"
-                              : "text-muted-foreground hover:text-foreground"
-                          }`}
-                          aria-label={item.label}
-                        >
-                          {item.icon}
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </nav>
-            )}
-
-            {pathname !== "/" && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => router.push("/")}
-                className="rounded-full text-xs font-medium border-border/70 hover:bg-secondary"
-              >
-                Back Home
-              </Button>
-            )}
-
+          {/* Theme Toggle */}
+          {mounted && (
             <Button
               onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
               variant="ghost"
               size="icon"
-              className="h-8 w-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary/70 transition-transform active:scale-95"
+              className="h-8 w-8 rounded-md text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Toggle theme"
             >
-              {resolvedTheme === "dark" ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} />}
+              {resolvedTheme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
             </Button>
-          </div>
+          )}
         </div>
       </div>
     </header>
@@ -166,4 +137,3 @@ const NavBar: React.FC = () => {
 };
 
 export default NavBar;
-

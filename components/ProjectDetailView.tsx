@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ExternalLink, Github, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export type ProjectDetailProps = {
@@ -32,88 +32,86 @@ export const ProjectDetailView: React.FC<ProjectDetailProps> = ({
   const router = useRouter();
 
   return (
-    <div className="min-h-[calc(100vh-80px)] section-shell py-12 flex flex-col justify-center items-center">
-      <div className="w-full max-w-4xl">
-        {/* Back navigation button */}
+    <div className="section-shell py-12">
+      <div className="max-w-3xl mx-auto">
+        {/* Back navigation */}
         <div className="mb-6">
           <Button
-            onClick={() => router.back()}
+            onClick={() => router.push("/#projects")}
             variant="ghost"
-            className="group rounded-full hover:bg-secondary text-muted-foreground hover:text-foreground"
+            size="sm"
+            className="text-xs font-mono text-muted-foreground hover:text-foreground"
           >
-            <ArrowLeft size={16} className="mr-2 transition-transform group-hover:-translate-x-1" />
+            <ArrowLeft size={13} className="mr-1.5" />
             Back to Projects
           </Button>
         </div>
 
-        {/* Main Glass Card */}
-        <div className="surface-panel p-6 sm:p-10 relative overflow-hidden border border-border/80 shadow-2xl backdrop-blur-2xl">
-          {/* Top ambient highlight glow */}
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Content Panel */}
+        <div className="surface-panel p-6 sm:p-8">
+          <div className="border-b border-border/80 pb-6 dark:border-white/[0.08]">
+            <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">
+              {category}
+            </span>
+            <h1 className="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
+              {title}
+            </h1>
+            <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
+              {subtitle}
+            </p>
 
-          {/* Header section */}
-          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 border-b border-border/60 pb-6 relative z-10">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-3">
-                <Sparkles size={13} />
-                {category}
-              </div>
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">{title}</h1>
-              <p className="text-base text-muted-foreground mt-2 font-medium leading-relaxed">{subtitle}</p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               {liveUrl && (
-                <Button asChild className="rounded-full px-5 bg-primary hover:bg-primary/90 text-primary-foreground shadow-md transition hover:scale-105">
+                <Button asChild size="sm" className="rounded-lg text-xs font-semibold">
                   <Link href={liveUrl} target="_blank" rel="noreferrer">
-                    <ExternalLink size={16} className="mr-2" />
-                    Live Demo
+                    <ExternalLink size={13} className="mr-1.5" />
+                    Live Application
                   </Link>
                 </Button>
               )}
-              <Button asChild variant="outline" className="rounded-full px-5 hover:bg-secondary transition hover:scale-105">
+              <Button asChild variant="outline" size="sm" className="rounded-lg text-xs font-semibold">
                 <Link href={githubUrl} target="_blank" rel="noreferrer">
-                  <Github size={16} className="mr-2" />
-                  GitHub Code
+                  <Github size={13} className="mr-1.5" />
+                  GitHub Repository
                 </Link>
               </Button>
             </div>
           </div>
 
-          {/* Technologies badge cloud */}
-          <div className="mt-6 relative z-10">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-              Technologies & Infrastructure
+          {/* Technologies */}
+          <div className="mt-6">
+            <h2 className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+              Technologies &amp; Architecture
             </h2>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-full bg-secondary/80 px-3.5 py-1 text-xs font-semibold text-foreground border border-border/60 shadow-sm"
-                >
+                <span key={tech} className="mono-tag">
                   {tech}
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Overview Description if present */}
+          {/* Description */}
           {description && (
-            <div className="mt-8 relative z-10">
-              <h2 className="text-xl font-semibold text-foreground mb-3">About this Project</h2>
-              <p className="text-muted-foreground leading-relaxed text-base">{description}</p>
+            <div className="mt-8">
+              <h2 className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-2">
+                Overview
+              </h2>
+              <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
             </div>
           )}
 
-          {/* Architecture Highlights */}
+          {/* Highlights */}
           {highlights.length > 0 && (
-            <div className="mt-8 space-y-4 relative z-10">
-              <h2 className="text-xl font-semibold text-foreground">Key Highlights & Engineering Focus</h2>
-              <ul className="space-y-3">
+            <div className="mt-8 space-y-3">
+              <h2 className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+                Key Engineering Highlights
+              </h2>
+              <ul className="space-y-2">
                 {highlights.map((highlight, index) => (
-                  <li key={index} className="flex items-start gap-3 text-muted-foreground text-base leading-relaxed">
-                    <CheckCircle2 size={18} className="text-primary mt-1 shrink-0" />
+                  <li key={index} className="flex items-start gap-2.5 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    <span className="text-foreground font-mono select-none mt-0.5">•</span>
                     <span className="text-foreground">{highlight}</span>
                   </li>
                 ))}
@@ -123,9 +121,9 @@ export const ProjectDetailView: React.FC<ProjectDetailProps> = ({
 
           {/* Additional References */}
           {additionalReferences && additionalReferences.length > 0 && (
-            <div className="mt-8 pt-6 border-t border-border/60 relative z-10">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                Additional References & Links
+            <div className="mt-8 pt-6 border-t border-border/80 dark:border-white/[0.08]">
+              <h2 className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+                References
               </h2>
               <div className="flex flex-wrap gap-3">
                 {additionalReferences.map((ref, index) => (
@@ -134,27 +132,15 @@ export const ProjectDetailView: React.FC<ProjectDetailProps> = ({
                     href={ref.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono text-foreground hover:underline"
                   >
-                    <ExternalLink size={14} />
+                    <ExternalLink size={12} />
                     {ref.label}
                   </Link>
                 ))}
               </div>
             </div>
           )}
-
-          {/* Bottom Back Button */}
-          <div className="mt-10 pt-6 border-t border-border/60 flex justify-between items-center relative z-10">
-            <Button
-              onClick={() => router.back()}
-              variant="outline"
-              className="rounded-full px-6"
-            >
-              <ArrowLeft size={16} className="mr-2" />
-              Back to Projects
-            </Button>
-          </div>
         </div>
       </div>
     </div>

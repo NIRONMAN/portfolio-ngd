@@ -4,48 +4,48 @@
 
 @layer base {
   :root {
-    --background: 220 25% 97%;
+    --background: 220 28% 98%;
     --foreground: 222 47% 11%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 221 83% 53%;
+    --primary: 222 47% 11%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 214 32% 91%;
+    --secondary: 218 25% 93%;
     --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 93.7%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 214 32% 91%;
-    --accent-foreground: 222 47% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214 32% 88%;
-    --input: 214 32% 88%;
-    --ring: 221 83% 53%;
-    --radius: 1rem;
+    --muted: 218 20% 94%;
+    --muted-foreground: 215 16% 45%;
+    --accent: 226 100% 97%;
+    --accent-foreground: 226 70% 40%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 218 20% 88%;
+    --input: 218 20% 88%;
+    --ring: 226 70% 55%;
+    --radius: 0.75rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 7%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 7%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
+    --background: 222 47% 4.5%;
+    --foreground: 210 40% 96%;
+    --card: 222 40% 7.5%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 40% 7.5%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 210 40% 98%;
     --primary-foreground: 222 47% 11%;
-    --secondary: 217 33% 14%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 14%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217 33% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 16%;
-    --input: 217 33% 16%;
-    --ring: 224 76% 48%;
+    --secondary: 222 30% 13%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 222 30% 12%;
+    --muted-foreground: 217 18% 65%;
+    --accent: 226 40% 16%;
+    --accent-foreground: 226 80% 75%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 222 25% 15%;
+    --input: 222 25% 15%;
+    --ring: 226 70% 60%;
   }
 }
 
@@ -56,32 +56,34 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
-    background-image:
-      radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.08), transparent 35%),
-      radial-gradient(circle at 85% 20%, rgba(139, 92, 246, 0.08), transparent 35%),
-      radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.05), transparent 40%);
+    @apply bg-background text-foreground antialiased selection:bg-indigo-500/20 selection:text-indigo-600 dark:selection:bg-indigo-500/30 dark:selection:text-indigo-300;
     min-height: 100vh;
     overflow-x: hidden;
   }
 
-  .dark body {
-    background-image:
-      radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.15), transparent 35%),
-      radial-gradient(circle at 85% 25%, rgba(139, 92, 246, 0.15), transparent 35%),
-      radial-gradient(circle at 50% 75%, rgba(16, 185, 129, 0.1), transparent 40%);
+  /* Subtle background atmospheric gradient: faint indigo & emerald warmth */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 600px;
+    background: radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.05), transparent 45%),
+                radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.03), transparent 45%);
+    pointer-events: none;
+    z-index: -1;
   }
 
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-display), serif;
-    letter-spacing: -0.01em;
+  .dark body::before {
+    background: radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.09), transparent 45%),
+                radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.06), transparent 45%);
   }
 
-  /* Custom scrollbar */
+  /* Refined scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
@@ -93,30 +95,52 @@
 
 @layer components {
   .section-shell {
-    @apply mx-auto w-full max-w-6xl px-4 md:px-8;
+    @apply mx-auto w-full max-w-5xl px-4 sm:px-6;
   }
 
+  /* Refined surface panel with faint top highlight & subtle indigo hover tint */
   .surface-panel {
-    @apply rounded-2xl border border-border/60 bg-card/75 shadow-lg shadow-black/5 backdrop-blur-xl transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 dark:shadow-black/30 dark:hover:shadow-primary/10;
-  }
-
-  .glass-card {
-    @apply relative overflow-hidden rounded-2xl border border-white/10 bg-card/60 p-6 backdrop-blur-md dark:border-white/5 dark:bg-card/40;
+    @apply rounded-xl border border-border/80 bg-card p-6 shadow-sm transition-all duration-200 hover:border-indigo-500/30 dark:border-white/[0.08] dark:hover:border-indigo-500/30 dark:hover:shadow-[0_0_24px_-8px_rgba(99,102,241,0.12)];
   }
 
   .section-kicker {
-    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary;
+    @apply font-mono text-[11px] font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400;
   }
 
   .section-title {
-    @apply mt-2 text-3xl font-bold tracking-tight text-foreground md:text-5xl md:leading-tight;
+    @apply mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl;
   }
 
-  .text-gradient {
-    @apply bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent dark:from-blue-400 dark:via-indigo-300 dark:to-purple-400;
+  .section-subtitle {
+    @apply mt-2 text-sm sm:text-base text-muted-foreground max-w-2xl leading-relaxed;
   }
-  
-  .text-gradient-gold {
-    @apply bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-500 bg-clip-text text-transparent dark:from-amber-300 dark:via-orange-300 dark:to-yellow-200;
+
+  /* Editorial italic serif highlight */
+  .serif-accent {
+    font-family: var(--font-display), Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    @apply text-indigo-600 dark:text-indigo-300;
+  }
+
+  /* Domain-tinted monospace tags */
+  .mono-tag {
+    @apply font-mono text-xs px-2.5 py-0.5 rounded-md border border-border bg-secondary/60 text-muted-foreground transition-colors hover:text-foreground hover:border-foreground/30;
+  }
+
+  .mono-tag-indigo {
+    @apply font-mono text-xs px-2.5 py-0.5 rounded-md border border-indigo-500/20 bg-indigo-500/5 text-indigo-700 dark:text-indigo-300 dark:border-indigo-500/25 dark:bg-indigo-500/10;
+  }
+
+  .mono-tag-emerald {
+    @apply font-mono text-xs px-2.5 py-0.5 rounded-md border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 dark:border-emerald-500/25 dark:bg-emerald-500/10;
+  }
+
+  .mono-tag-amber {
+    @apply font-mono text-xs px-2.5 py-0.5 rounded-md border border-amber-500/20 bg-amber-500/5 text-amber-700 dark:text-amber-300 dark:border-amber-500/25 dark:bg-amber-500/10;
+  }
+
+  .mono-tag-violet {
+    @apply font-mono text-xs px-2.5 py-0.5 rounded-md border border-purple-500/20 bg-purple-500/5 text-purple-700 dark:text-purple-300 dark:border-purple-500/25 dark:bg-purple-500/10;
   }
 }

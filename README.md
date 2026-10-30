@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Niranjan Dabhade — Portfolio (`portfolio-ngd`)
 
-## Getting Started
+> Modern developer portfolio showcasing backend engineering in **Java Spring Boot**, cloud infrastructure with **Kubernetes & ArgoCD**, analytical pipelines in **Google BigQuery**, and modern **AI RAG Orchestration**.
 
-First, run the development server:
+[![Next.js](https://img.shields.io/badge/Next.js-14.2-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](https://www.docker.com/)
 
+---
+
+## 🚀 Key Highlights & Stack
+
+- **Framework:** Next.js 14 (App Router) + React 18
+- **Language:** TypeScript 5 (Strict Mode)
+- **Styling & Design System:** Tailwind CSS, Radix UI primitives, dynamic Dark/Light modes (`next-themes`)
+- **Backend & Contact Form:** Next.js API Routes, Zod schema validation, in-memory IP rate-limiting, Google reCAPTCHA v2, Nodemailer
+- **Containerization:** Multi-stage production `Dockerfile` with standalone Next.js build output
+- **SEO & Social:** Dynamic OpenGraph metadata, JSON-LD Schema.org structure (`Person`, `WebSite`), `sitemap.xml`, and `robots.txt`
+
+---
+
+## 🛠️ Local Development
+
+### Prerequisites
+- Node.js >= 18
+- npm >= 9
+
+### Installation
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/NIRONMAN/portfolio-ngd.git
+cd portfolio-ngd
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Configuration
+Create a `.env.local` file in the project root:
+```env
+# Contact Form Nodemailer
+EMAIL=your-email@gmail.com
+PASS=your-app-password
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Google reCAPTCHA
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
+RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Production & Docker Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Local Build
+```bash
+npm run build
+npm run start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Docker
+```bash
+# Build & start containerized application
+docker compose up --build
 
-## Deploy on Vercel
+# Run in detached mode
+docker compose up -d
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 👤 Author
+
+**Niranjan Dabhade**  
+Jr. Software Engineer @ Findability Sciences  
+- **GitHub:** [@NIRONMAN](https://github.com/NIRONMAN)  
+- **LinkedIn:** [linkedin.com/in/nironman](https://www.linkedin.com/in/nironman/)  
+- **LeetCode:** [leetcode.com/u/nironman](https://leetcode.com/u/nironman/)  
