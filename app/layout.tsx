@@ -1,22 +1,10 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["500", "600", "700"],
-  display: "swap",
-});
+import { ExperienceProvider } from "@/lib/experience-context";
+import { ModeSelectionModal } from "@/components/ModeSelectionModal";
 
 const siteUrl = "https://niranjandabhade.dev";
 
@@ -139,7 +127,7 @@ export default function RootLayout({
       </head>
 
       <body
-        className={`${manrope.variable} ${cormorant.variable} font-sans min-h-screen flex flex-col justify-between selection:bg-primary/20 selection:text-primary`}
+        className="font-sans min-h-screen flex flex-col justify-between selection:bg-primary/20 selection:text-primary"
       >
         <ThemeProvider
           attribute="class"
@@ -147,9 +135,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavBar />
-          <div className="flex-1">{children}</div>
-          <Footer />
+          <ExperienceProvider>
+            <ModeSelectionModal />
+            <NavBar />
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </ExperienceProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,10 +1,11 @@
 "use client";
 
-import { Moon, Sun, ArrowLeft } from "lucide-react";
+import { Moon, Sun, ArrowLeft, Terminal } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
+import { useExperience } from "@/lib/experience-context";
 
 type NavItem = {
   label: string;
@@ -20,6 +21,7 @@ const navItems: NavItem[] = [
 
 const NavBar: React.FC = () => {
   const { resolvedTheme, setTheme } = useTheme();
+  const { mode, setMode } = useExperience();
   const [activeSection, setActiveSection] = useState("");
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
@@ -64,6 +66,11 @@ const NavBar: React.FC = () => {
 
   const isHome = pathname === "/";
 
+  // Hide the standard navbar when Developer Mode is active on the home page
+  if (mounted && mode === "developer" && isHome) {
+    return null;
+  }
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/80 bg-background/85 backdrop-blur-md dark:border-white/[0.08]">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
@@ -82,7 +89,7 @@ const NavBar: React.FC = () => {
         </button>
 
         {/* Navigation Items */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-3">
           {isHome ? (
             <nav aria-label="Main Navigation">
               <ul className="flex items-center gap-1 sm:gap-2">
@@ -116,6 +123,20 @@ const NavBar: React.FC = () => {
               <ArrowLeft size={13} className="mr-1.5" />
               Overview
             </Button>
+          )}
+
+          {/* Developer HUD Switcher */}
+          {mounted && (
+            <button
+              type="button"
+              onClick={() => setMode("developer")}
+              className="flex items-center gap-1.5 rounded-md border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 font-mono text-xs font-semibold text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 hover:border-amber-500/50 transition-all shadow-sm shadow-amber-500/10"
+              title="Launch Cyberpunk Developer Terminal HUD"
+            >
+              <Terminal size={13} className="text-amber-500" />
+              <span className="hidden sm:inline">Dev HUD</span>
+              <span className="text-[10px] bg-amber-500/20 px-1 py-0.2 rounded font-bold">⚡</span>
+            </button>
           )}
 
           {/* Theme Toggle */}

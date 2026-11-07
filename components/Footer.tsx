@@ -3,11 +3,20 @@
 import React from "react";
 import Link from "next/link";
 import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
+import { useExperience } from "@/lib/experience-context";
+import { usePathname } from "next/navigation";
 
 export const Footer: React.FC = () => {
+  const { mode } = useExperience();
+  const pathname = usePathname();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  if (mode === "developer" && pathname === "/") {
+    return null;
+  }
 
   return (
     <footer className="mt-20 border-t border-border/80 bg-background py-10 dark:border-white/[0.08]">
