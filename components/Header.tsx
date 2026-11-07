@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight, Download, Github, Mail, Terminal, MapPin } from "lucide-react";
+import { ArrowUpRight, Download, Github, Mail } from "lucide-react";
 import { Button } from "./ui/button";
 
 type GithubUserProps = {
@@ -57,24 +57,18 @@ const Header: React.FC = () => {
 
   return (
     <div className="section-shell pt-4 sm:pt-8">
-      {/* Top Status Bar with faint emerald accent */}
-      <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-3 py-1 dark:bg-emerald-500/10">
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-        </span>
-        <span className="font-mono text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
-          Findability Sciences • Chh. Sambhajinagar, India
-        </span>
-      </div>
-
-      <div className="mt-6 grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         {/* Left: Bio & Statement */}
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl leading-[1.15]">
             Niranjan Dabhade
           </h1>
-          <p className="mt-2 text-lg sm:text-xl font-medium text-muted-foreground">
+          <p className="mt-2 text-sm sm:text-base font-medium text-muted-foreground flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span>Software Engineer at <span className="text-foreground font-semibold">Findability Sciences</span></span>
+            <span className="text-border dark:text-white/20 select-none">•</span>
+            <span>Chh. Sambhajinagar, India</span>
+          </p>
+          <p className="mt-4 text-lg sm:text-xl font-medium text-muted-foreground">
             Building resilient <span className="serif-accent">distributed backends</span>, GitOps cloud, &amp; practical AI.
           </p>
 
