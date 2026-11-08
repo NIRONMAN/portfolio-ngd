@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ExternalLink, Github, CheckCircle2 } from "lucide-react";
@@ -12,6 +13,7 @@ export type ProjectDetailProps = {
   category: string;
   githubUrl: string;
   liveUrl?: string;
+  imageUrl?: string;
   technologies: string[];
   highlights: string[];
   description?: string;
@@ -24,6 +26,7 @@ export const ProjectDetailView: React.FC<ProjectDetailProps> = ({
   category,
   githubUrl,
   liveUrl,
+  imageUrl,
   technologies,
   highlights,
   description,
@@ -49,6 +52,18 @@ export const ProjectDetailView: React.FC<ProjectDetailProps> = ({
 
         {/* Content Panel */}
         <div className="surface-panel p-6 sm:p-8">
+          {imageUrl && (
+            <div className="relative h-52 sm:h-64 w-full rounded-xl border border-border/70 bg-gradient-to-b from-indigo-500/10 via-indigo-500/5 to-transparent p-4 mb-6 overflow-hidden dark:border-white/[0.06]">
+              <Image
+                src={imageUrl}
+                alt={title}
+                fill
+                className="object-contain p-4"
+                sizes="(max-width: 768px) 100vw, 768px"
+                priority
+              />
+            </div>
+          )}
           <div className="border-b border-border/80 pb-6 dark:border-white/[0.08]">
             <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">
               {category}

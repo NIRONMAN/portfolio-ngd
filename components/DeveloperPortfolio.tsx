@@ -217,9 +217,9 @@ export const DeveloperPortfolio: React.FC = () => {
   }, [terminalLogs]);
 
   return (
-    <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-[#090e12] text-[#c9d1d9] font-mono selection:bg-amber-400/20 selection:text-amber-300 p-2 sm:p-3 flex flex-col justify-between z-40">
+    <div className="fixed inset-0 h-screen w-screen overflow-y-auto lg:overflow-hidden bg-[#090e12] text-[#c9d1d9] font-mono selection:bg-amber-400/20 selection:text-amber-300 p-2 sm:p-3 flex flex-col justify-between z-40">
       {/* Outer Cyber Console Window */}
-      <div className="mx-auto w-full max-w-7xl h-full rounded-2xl border border-[#1c2730] bg-[#0c1217] shadow-2xl flex flex-col overflow-hidden">
+      <div className="mx-auto w-full max-w-7xl min-h-full lg:h-full rounded-2xl border border-[#1c2730] bg-[#0c1217] shadow-2xl flex flex-col overflow-visible lg:overflow-hidden">
         {/* Top Header Bar */}
         <header className="flex-none flex items-center justify-between border-b border-[#1c2730] bg-[#0e161c] px-4 py-2 sm:px-5">
           <div className="flex items-center gap-2.5">
@@ -274,10 +274,10 @@ export const DeveloperPortfolio: React.FC = () => {
           </span>
         </div>
 
-        {/* Main 3-Column Dashboard Body: exactly fits available height, internal panels scroll */}
+        {/* Main 3-Column Dashboard Body: exactly fits available height on lg, scrolls on mobile */}
         <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3 p-3 sm:p-4 bg-[#0c1217]">
           {/* Column 1: CORE_MODULES (3 cols on lg) */}
-          <div className="lg:col-span-3 min-h-0 flex flex-col rounded-xl border border-[#1c2730] bg-[#10171d] p-3.5">
+          <div className="lg:col-span-3 min-h-[300px] lg:min-h-0 flex flex-col rounded-xl border border-[#1c2730] bg-[#10171d] p-3.5">
             {/* Header with collapse toggle */}
             <div
               onClick={() => setIsCoreOpen(!isCoreOpen)}
@@ -475,7 +475,7 @@ export const DeveloperPortfolio: React.FC = () => {
           </div>
 
           {/* Column 2: PROJECTS_REACTIVE (6 cols on lg) */}
-          <div className="lg:col-span-6 min-h-0 flex flex-col rounded-xl border border-[#1c2730] bg-[#10171d] p-3.5">
+          <div className="lg:col-span-6 min-h-[460px] lg:min-h-0 flex flex-col rounded-xl border border-[#1c2730] bg-[#10171d] p-3.5">
             {/* Header with Search and Category filters */}
             <div className="flex-none border-b border-[#1c2730] pb-2.5 space-y-2">
               <div className="flex items-center justify-between text-amber-300 font-bold text-xs tracking-wider">
@@ -497,6 +497,7 @@ export const DeveloperPortfolio: React.FC = () => {
                     value={projectSearch}
                     onChange={(e) => setProjectSearch(e.target.value)}
                     placeholder="filter projects..."
+                    aria-label="Filter projects"
                     className="w-full rounded bg-[#090e12] border border-[#1f2b34] pl-6 pr-2 py-1 text-[11px] text-neutral-200 placeholder:text-neutral-600 focus:outline-none focus:border-amber-400/50"
                   />
                 </div>
@@ -602,7 +603,7 @@ export const DeveloperPortfolio: React.FC = () => {
           </div>
 
           {/* Column 3: TELEMETRY & STATS (3 cols on lg) */}
-          <div className="lg:col-span-3 min-h-0 flex flex-col gap-2.5">
+          <div className="lg:col-span-3 min-h-[460px] lg:min-h-0 flex flex-col gap-2.5">
             {/* Box 1: TELEMETRY_LOGS */}
             <div className="flex-none rounded-xl border border-[#1c2730] bg-[#10171d] p-3">
               <div className="flex items-center gap-1.5 text-amber-300 font-bold text-xs tracking-wider border-b border-[#1c2730] pb-1.5">
@@ -736,6 +737,7 @@ export const DeveloperPortfolio: React.FC = () => {
                   value={terminalInput}
                   onChange={(e) => setTerminalInput(e.target.value)}
                   placeholder="type 'help' or 'classic'"
+                  aria-label="Interactive terminal command input"
                   className="w-full bg-transparent text-[10.5px] text-amber-300 placeholder:text-neutral-600 focus:outline-none font-mono"
                 />
                 <span className="inline-block w-1.5 h-3 bg-emerald-400 animate-pulse" />

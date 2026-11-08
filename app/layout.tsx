@@ -1,10 +1,30 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, JetBrains_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { ExperienceProvider } from "@/lib/experience-context";
 import { ModeSelectionModal } from "@/components/ModeSelectionModal";
+
+const fontSans = Manrope({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const fontDisplay = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 const siteUrl = "https://niranjandabhade.dev";
 
@@ -32,6 +52,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Niranjan Dabhade", url: "https://github.com/NIRONMAN" }],
   creator: "Niranjan Dabhade",
+  icons: {
+    icon: "/Logo.svg",
+    shortcut: "/Logo.svg",
+    apple: "/Logo.svg",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -40,6 +65,14 @@ export const metadata: Metadata = {
     description:
       "Building resilient distributed backends, GitOps cloud deployments with Kubernetes & ArgoCD, and enterprise AI RAG workflows.",
     siteName: "Niranjan Dabhade Portfolio",
+    images: [
+      {
+        url: "/programmer.png",
+        width: 1200,
+        height: 630,
+        alt: "Niranjan Dabhade | Software Engineer & AI Orchestration",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -47,6 +80,7 @@ export const metadata: Metadata = {
     description:
       "Building resilient distributed backends, GitOps cloud deployments, and enterprise AI RAG workflows.",
     creator: "@NIRONMAN",
+    images: ["/programmer.png"],
   },
   robots: {
     index: true,
@@ -127,7 +161,7 @@ export default function RootLayout({
       </head>
 
       <body
-        className="font-sans min-h-screen flex flex-col justify-between selection:bg-primary/20 selection:text-primary"
+        className={`${fontSans.variable} ${fontMono.variable} ${fontDisplay.variable} font-sans min-h-screen flex flex-col justify-between selection:bg-primary/20 selection:text-primary`}
       >
         <ThemeProvider
           attribute="class"

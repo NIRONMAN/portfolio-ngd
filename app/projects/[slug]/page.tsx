@@ -29,11 +29,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: project.subtitle,
       url: `https://niranjandabhade.dev/projects/${project.slug}`,
       type: "article",
+      images: [
+        {
+          url: project.imageUrl,
+          alt: project.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: project.title,
       description: project.subtitle,
+      images: [project.imageUrl],
     },
   };
 }
@@ -52,6 +59,7 @@ export default function ProjectPage({ params }: Props) {
       category={project.category}
       githubUrl={project.githubUrl}
       liveUrl={project.liveUrl}
+      imageUrl={project.imageUrl}
       technologies={project.technologies}
       highlights={project.highlights}
       description={project.description}

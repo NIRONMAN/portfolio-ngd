@@ -87,9 +87,21 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Clean inputs and dispatch email
+    // Clean inputs and sanitize HTML to prevent email injection
     const safeSenderName = body.senderName.replace(/[\r\n]/g, " ").trim();
     const safeSenderEmail = body.email.replace(/[\r\n]/g, " ").trim();
+
+    const escapeHtml = (str: string) =>
+      str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    const htmlSenderName = escapeHtml(safeSenderName);
+    const htmlSenderEmail = escapeHtml(safeSenderEmail);
+    const htmlMessage = escapeHtml(body.message);
 
     await transporter.sendMail({
       from: recipientEmail,
@@ -100,10 +112,10 @@ export async function POST(req: NextRequest) {
       html: `
         <div style="font-family: sans-serif; line-height: 1.6; color: #111;">
           <h2 style="color: #2563eb; border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;">New Contact Submission</h2>
-          <p><strong>Sender:</strong> ${safeSenderName}</p>
-          <p><strong>Email:</strong> <a href="mailto:${safeSenderEmail}">${safeSenderEmail}</a></p>
+          <p><strong>Sender:</strong> ${htmlSenderName}</p>
+          <p><strong>Email:</strong> <a href="mailto:${htmlSenderEmail}">${htmlSenderEmail}</a></p>
           <div style="margin-top: 16px; padding: 14px; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb;">
-            <p style="white-space: pre-wrap; margin: 0;">${body.message}</p>
+            <p style="white-space: pre-wrap; margin: 0;">${htmlMessage}</p>
           </div>
         </div>
       `,

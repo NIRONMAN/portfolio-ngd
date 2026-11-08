@@ -1,13 +1,25 @@
 "use client";
 
 import React from "react";
+import dynamic from "next/dynamic";
 import About from "@/components/About";
 import ContactMe from "@/components/ContactMe";
 import Header from "@/components/Header";
 import Projects from "@/components/Projects";
 import SkillsComponent from "@/components/Skills";
-import { DeveloperPortfolio } from "@/components/DeveloperPortfolio";
 import { useExperience } from "@/lib/experience-context";
+
+const DeveloperPortfolio = dynamic(
+  () => import("@/components/DeveloperPortfolio").then((mod) => mod.DeveloperPortfolio),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="fixed inset-0 flex items-center justify-center bg-[#090e12] font-mono text-xs text-amber-300">
+        <span className="animate-pulse">[INITIALIZING DEV.SYS HUD...]</span>
+      </div>
+    ),
+  }
+);
 
 export default function HomePage() {
   const { mode, mounted } = useExperience();

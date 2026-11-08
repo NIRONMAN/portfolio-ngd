@@ -50,7 +50,12 @@ export const ExperienceProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   };
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      localStorage.setItem(STORAGE_KEY, mode);
+    }
+  };
 
   return (
     <ExperienceContext.Provider
