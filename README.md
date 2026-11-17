@@ -6,8 +6,7 @@
   <strong>Production-grade developer portfolio featuring a dual-mode Cyberpunk HUD & Classic editorial experience. Showcasing distributed backend engineering in Java Spring Boot, cloud orchestration with Kubernetes & ArgoCD, BigQuery data pipelines, and enterprise AI RAG systems.</strong>
 </p>
 
-[![Live Site](https://img.shields.io/badge/Live%20Demo-niranjandabhade.dev-indigo?style=for-the-badge&logo=vercel&logoColor=white)](https://niranjandabhade.dev)
-[![Alternate Domain](https://img.shields.io/badge/Portfolio%20Domain-nironman.com-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://www.nironman.com)
+[![Live Site](https://img.shields.io/badge/Live%20Portfolio-nironman.com-indigo?style=for-the-badge&logo=vercel&logoColor=white)](https://nironman.com)
 [![GitHub Profile](https://img.shields.io/badge/GitHub-NIRONMAN-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/NIRONMAN)
 
 <br />
@@ -27,8 +26,7 @@
 
 | Environment | Production URL | Description |
 | :--- | :--- | :--- |
-| **Primary Domain** | [**https://niranjandabhade.dev**](https://niranjandabhade.dev) | Canonical production domain with SSL, edge caching, and automated deployment |
-| **Portfolio Alias** | [**https://www.nironman.com**](https://www.nironman.com) | Alternate vanity domain pointing to the live portfolio instance |
+| **Primary Domain** | [**https://nironman.com**](https://nironman.com) | Canonical production domain with SSL, edge caching, and automated deployment |
 
 ---
 
@@ -384,8 +382,7 @@ The containerized application will be available at [http://localhost:3000](http:
 *Jr. Software Engineer @ Findability Sciences*  
 Specializing in Java Spring Boot, Cloud Infrastructure (Kubernetes & ArgoCD), BigQuery, and AI RAG Systems.
 
-- **Portfolio:** [niranjandabhade.dev](https://niranjandabhade.dev)
-- **Alternate Domain:** [nironman.com](https://www.nironman.com)
+- **Portfolio:** [nironman.com](https://nironman.com)
 - **GitHub:** [@NIRONMAN](https://github.com/NIRONMAN)
 - **LinkedIn:** [linkedin.com/in/nironman](https://www.linkedin.com/in/nironman/)
 - **LeetCode:** [leetcode.com/u/nironman](https://leetcode.com/u/nironman/)
